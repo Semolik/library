@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f1fb754b-d9ed-492b-b710-071017fffef2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.npmrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.prettierignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/app/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/app/layout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/app/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/components.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/components/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/components/theme-provider.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/eslint.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/hooks/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/lib/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/next-env.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/next.config.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/postcss.config.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/eslint-config/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/eslint-config/base.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/eslint-config/next.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/eslint-config/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/eslint-config/react-internal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/typescript-config/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/typescript-config/base.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/typescript-config/nextjs.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/typescript-config/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/typescript-config/react-library.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/ui/components.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/ui/eslint.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/ui/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/ui/postcss.config.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/ui/src/components/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/ui/src/components/button.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/ui/src/hooks/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/ui/src/lib/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/ui/src/lib/utils.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/ui/src/styles/globals.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/ui/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/ui/tsconfig.lint.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/turbo.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Semolik&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Semolik/library.git&quot;,
+    &quot;accountId&quot;: &quot;6ee14910-ef63-4268-839b-8326b2c3869a&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="3BFDaP62ilW3FvuOIttdHUGiduX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-PY-251.25410.122" />
+        <option value="bundled-python-sdk-880ecab49056-36ea0e71a18c-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.25410.122" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f1fb754b-d9ed-492b-b710-071017fffef2" name="Changes" comment="" />
+      <created>1774075988839</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1774075988839</updated>
+      <workItem from="1774075990604" duration="1703000" />
+      <workItem from="1774077859202" duration="217000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>
