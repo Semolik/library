@@ -1,18 +1,22 @@
+import Link from "next/link"
 import { Button } from "@workspace/ui/components/button"
 
 export default function Page() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
+    <div className="flex min-h-svh items-center justify-center p-6">
+      <div className="flex max-w-md flex-col gap-6 text-center">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-3xl font-bold">Библиотека</h1>
+          <p className="text-muted-foreground">Система управления библиотечным фондом</p>
         </div>
-        <div className="text-muted-foreground font-mono text-xs">
-          (Press <kbd>d</kbd> to toggle dark mode)
+        <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
+          <Button asChild>
+            <Link href="/login">Войти</Link>
+          </Button>
         </div>
+        <p className="text-muted-foreground text-xs">
+          (Нажмите <kbd>d</kbd> для смены темы)
+        </p>
       </div>
     </div>
   )

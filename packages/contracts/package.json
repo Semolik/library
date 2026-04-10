@@ -14,15 +14,18 @@
       "default": "./dist/auth/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "zod": "^3.25.76"
+  },
   "devDependencies": {
     "@workspace/typescript-config": "*",
     "typescript": "^5.9.3"
   }
 }
-
