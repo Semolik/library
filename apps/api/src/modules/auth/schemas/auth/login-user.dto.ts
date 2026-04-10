@@ -19,3 +19,4 @@ export class LoginUserDto implements LoginUserInput {
   @IsNotEmpty()
   password!: string;
 }
+

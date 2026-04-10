@@ -5,8 +5,7 @@ import { PrismaService } from '@common/services/prisma.service';
 import { ConfigService } from '@config/config.service';
 import { UserAlreadyExistsError, InvalidCredentialsError, InvalidTokenError, UserNotFoundError } from '@common/exceptions';
 import type { JwtPayload, TokenResponse } from '@workspace/contracts';
-import { CreateUserDto } from '@modules/auth/schemas/create-user.dto';
-import { LoginUserDto } from '@modules/auth/schemas/login-user.dto';
+import { CreateUserDto, LoginUserDto } from '@modules/auth/schemas/user';
 import { User } from '@prisma/client';
 
 @Injectable()

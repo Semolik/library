@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, HttpCode } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -8,11 +8,9 @@ import {
 } from '@nestjs/swagger';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { CurrentUser } from '@common/decorators';
-import { CreateUserDto } from '@modules/auth/schemas/create-user.dto';
-import { LoginUserDto } from '@modules/auth/schemas/login-user.dto';
-import { RefreshTokenDto } from '@modules/auth/schemas/refresh-token.dto';
-import { TokenResponseDto } from '@modules/auth/schemas/token-response.dto';
-import type { TokenResponse, AuthUser } from '@workspace/contracts';
+import { CreateUserDto, LoginUserDto, UserProfileDto } from '@modules/auth/schemas/user';
+import { RefreshTokenDto, TokenResponseDto } from '@modules/auth/schemas/token';
+import type { TokenResponse } from '@workspace/contracts';
 import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { User } from '@prisma/client';
 @ApiTags('Auth')
@@ -34,6 +32,7 @@ export class AuthController {
   }
 
   @Post('login')
+  @HttpCode(200)
   @ApiOperation({ summary: 'Вход в систему' })
   @ApiBody({ type: LoginUserDto })
   @ApiResponse({
@@ -47,6 +46,7 @@ export class AuthController {
   }
 
   @Post('refresh')
+  @HttpCode(200)
   @ApiOperation({ summary: 'Обновление токена доступа' })
   @ApiBody({ type: RefreshTokenDto })
   @ApiResponse({
@@ -66,23 +66,10 @@ export class AuthController {
   @ApiResponse({
     status: 200,
     description: 'Профиль пользователя',
-    schema: {
-      type: 'object',
-      properties: {
-        id: { type: 'string' },
-        email: { type: 'string' },
-        username: { type: 'string' },
-        createdAt: { type: 'string', format: 'date-time' },
-      },
-    },
+    type: UserProfileDto,
   })
   @ApiResponse({ status: 401, description: 'Не авторизован' })
-  async getProfile(@CurrentUser() user: User) {
-    return {
-      id: user.id,
-      email: user.email,
-      username: user.username,
-      createdAt: user.createdAt,
-    };
+  async getProfile(@CurrentUser() user: User): Promise<UserProfileDto> {
+    return user;
   }
 }

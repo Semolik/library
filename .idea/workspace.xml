@@ -4,81 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1fb754b-d9ed-492b-b710-071017fffef2" name="Changes" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/API_USAGE_GUIDE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MIGRATION_CHECKLIST.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MIGRATION_SUMMARY.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/REDIS_REMOVAL_MIGRATION.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UPDATE_SUMMARY.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/eslint.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/prisma/migrations/0_init/migration.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/prisma/schema.prisma" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/prisma/seed.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/scripts/db-init.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/scripts/start-dev.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/app.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/app.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/app.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/decorators/current-user.decorator.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/decorators/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/decorators/public.decorator.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/invalid-credentials.exception.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/invalid-token.exception.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/user-already-exists.exception.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/user-not-found.exception.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/guards/jwt-auth.guard.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/services/database.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/services/health-check.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/services/prisma.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/services/token-storage.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/strategies/jwt.strategy.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/config/config.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/config/config.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/config/env.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/config/env.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/config/env.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/main.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/auth.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/controllers/auth.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/controllers/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/entities/jwt-payload.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/create-user.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/login-user.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/refresh-token.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/token-response.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/services/auth.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/services/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/test-api.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/tsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/deployment/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/deployment/Dockerfile.web" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/deployment/_docker-compose.base.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/deployment/docker-compose.local.full.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/deployment/docker-compose.local.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/deployment/init-db.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/contracts/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/contracts/tsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/init-db.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/init-env.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/setup.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/start-all.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/start-db.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/verify-env.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/with-env.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/turbo.json" beforeDir="false" afterPath="$PROJECT_DIR$/turbo.json" afterDir="false" />
+    <list default="true" id="f1fb754b-d9ed-492b-b710-071017fffef2" name="Changes" comment="Add initial project structure with essential files and configurations">
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/auth/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/auth/login-user.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/auth/refresh-token.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/token/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/token/refresh-token.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/token/token-response.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/base-user.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/create-user.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/login-user.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/user-profile.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/controllers/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/controllers/auth.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/create-user.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/login-user.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/refresh-token.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/token-response.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/services/auth.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,7 +121,7 @@
       <workItem from="1775825959658" duration="1641000" />
       <workItem from="1775827607447" duration="3282000" />
       <workItem from="1775830901529" duration="1187000" />
-      <workItem from="1775832094723" duration="1004000" />
+      <workItem from="1775832094723" duration="1788000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -186,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774078149812</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add initial project structure with essential files and configurations">
+      <option name="closed" value="true" />
+      <created>1775833197471</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1775833197471</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,7 +147,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+    <MESSAGE value="Add initial project structure with essential files and configurations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add initial project structure with essential files and configurations" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

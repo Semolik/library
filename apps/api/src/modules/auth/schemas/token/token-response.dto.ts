@@ -31,3 +31,4 @@ export class TokenResponseDto implements TokenResponse {
   })
   user!: TokenResponse['user'];
 }
+
