@@ -1,13 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import type { LoginUserFormData } from '@workspace/contracts/auth';
 
-export class BaseUserDto {
-  @ApiProperty({
-    example: 'user@example.com',
-    description: 'Email адрес пользователя',
-  })
-  @IsEmail()
-  @IsNotEmpty()
-  email!: string;
-}
-
+export type BaseUserDto = Pick<LoginUserFormData, 'email'>;

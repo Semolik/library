@@ -8,11 +8,13 @@ import {
 } from '@nestjs/swagger';
 import { AuthService } from '@modules/auth/services/auth.service';
 import { CurrentUser, ApiException } from '@common/decorators';
-import { CreateUserDto, LoginUserDto, UserProfileDto } from '@modules/auth/schemas/user';
-import { RefreshTokenDto, TokenResponseDto } from '@modules/auth/schemas/token';
+import { CreateUserDto, CreateUserDtoSchema, LoginUserDto, LoginUserDtoSchema, UserProfileDto } from '@modules/auth/schemas/user';
+import { RefreshTokenDto, RefreshTokenDtoSchema, TokenResponseDto } from '@modules/auth/schemas/token';
 import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
+import { ZodValidationPipe } from '@common/pipes';
 import { User } from '@prisma/client';
 import { UserAlreadyExistsError, InvalidCredentialsError, InvalidTokenError, UserNotFoundError } from '@common/exceptions';
+
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
@@ -27,7 +29,7 @@ export class AuthController {
     type: TokenResponseDto,
   })
   @ApiException(UserAlreadyExistsError)
-  async register(@Body() createUserDto: CreateUserDto) {
+  async register(@Body(new ZodValidationPipe(CreateUserDtoSchema)) createUserDto: CreateUserDto) {
     return this.authService.register(createUserDto);
   }
 
@@ -41,7 +43,7 @@ export class AuthController {
     type: TokenResponseDto,
   })
   @ApiException(InvalidCredentialsError)
-  async login(@Body() loginUserDto: LoginUserDto) {
+  async login(@Body(new ZodValidationPipe(LoginUserDtoSchema)) loginUserDto: LoginUserDto) {
     return this.authService.login(loginUserDto);
   }
 
@@ -55,7 +57,7 @@ export class AuthController {
     type: TokenResponseDto,
   })
   @ApiException(InvalidTokenError)
-  async refresh(@Body() refreshTokenDto: RefreshTokenDto) {
+  async refresh(@Body(new ZodValidationPipe(RefreshTokenDtoSchema)) refreshTokenDto: RefreshTokenDto) {
     return this.authService.refreshToken(refreshTokenDto.refreshToken);
   }
 

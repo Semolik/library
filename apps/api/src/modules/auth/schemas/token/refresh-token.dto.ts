@@ -1,14 +1,14 @@
-import { IsString, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import type { RefreshTokenInput } from '@workspace/contracts';
+import { RefreshTokenSchema } from '@workspace/contracts/auth';
+import type { RefreshTokenFormData } from '@workspace/contracts/auth';
 
-export class RefreshTokenDto implements RefreshTokenInput {
+export class RefreshTokenDto implements RefreshTokenFormData {
   @ApiProperty({
     example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
-    description: 'Refresh токен для получения новых access token',
+    description: 'Refresh токен для обновления accessToken',
   })
-  @IsString()
-  @IsNotEmpty()
   refreshToken!: string;
 }
 
+// Zod схема для валидации
+export const RefreshTokenDtoSchema = RefreshTokenSchema;

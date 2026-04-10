@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import type { TokenResponseData } from '@workspace/contracts/auth';
 
-export class TokenResponseDto {
+export class TokenResponseDto implements TokenResponseData {
   @ApiProperty({
     example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
     description: 'JWT токен доступа',
@@ -19,4 +20,3 @@ export class TokenResponseDto {
   })
   expiresIn!: number;
 }
-

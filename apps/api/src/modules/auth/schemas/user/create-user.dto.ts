@@ -1,16 +1,22 @@
-import { IsString, MinLength, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import type { CreateUserInput } from '@workspace/contracts';
-import { BaseUserDto } from './base-user.dto';
+import { CreateUserSchema } from '@workspace/contracts/auth';
+import type { CreateUserFormData } from '@workspace/contracts/auth';
 
-export class CreateUserDto extends BaseUserDto implements CreateUserInput {
+export class CreateUserDto implements CreateUserFormData {
   @ApiProperty({
-    example: 'securePassword123',
-    description: 'Пароль (минимум 8 символов)',
+    example: 'user@example.com',
+    description: 'Email пользователя',
   })
-  @IsString()
-  @IsNotEmpty()
-  @MinLength(8)
+  email!: string;
+
+  @ApiProperty({
+    example: 'SecurePassword123',
+    description: 'Пароль (минимум 8 символов, с заглавной буквой, цифрой)',
+  })
   password!: string;
 }
+
+// Zod схема для валидации
+export const CreateUserDtoSchema = CreateUserSchema;
+
 

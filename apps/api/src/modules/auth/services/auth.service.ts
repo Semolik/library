@@ -4,7 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { PrismaService } from '@common/services/prisma.service';
 import { ConfigService } from '@config/config.service';
 import { UserAlreadyExistsError, InvalidCredentialsError, InvalidTokenError, UserNotFoundError } from '@common/exceptions';
-import { CreateUserDto, LoginUserDto } from '@modules/auth/schemas/user';
+import type { CreateUserFormData, LoginUserFormData } from '@workspace/contracts/auth';
 import { User, Prisma } from '@prisma/client';
 
 interface JwtPayload {
@@ -20,7 +20,7 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
 
-  async register(createUserDto: CreateUserDto) {
+  async register(createUserDto: CreateUserFormData) {
     const { email, password } = createUserDto;
 
     const existingUserByEmail = await this.prisma.user.findUnique({
@@ -45,7 +45,7 @@ export class AuthService {
     return this.generateTokens(user);
   }
 
-  async login(loginUserDto: LoginUserDto) {
+  async login(loginUserDto: LoginUserFormData) {
     const { email, password } = loginUserDto;
 
     const user = await this.prisma.user.findUnique({

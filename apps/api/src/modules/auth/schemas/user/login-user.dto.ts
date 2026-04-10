@@ -1,15 +1,22 @@
-import { IsString, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import type { LoginUserInput } from '@workspace/contracts';
-import { BaseUserDto } from './base-user.dto';
+import { LoginUserSchema } from '@workspace/contracts/auth';
+import type { LoginUserFormData } from '@workspace/contracts/auth';
 
-export class LoginUserDto extends BaseUserDto implements LoginUserInput {
+export class LoginUserDto implements LoginUserFormData {
   @ApiProperty({
-    example: 'securePassword123',
+    example: 'user@example.com',
+    description: 'Email пользователя',
+  })
+  email!: string;
+
+  @ApiProperty({
+    example: 'password123',
     description: 'Пароль пользователя',
   })
-  @IsString()
-  @IsNotEmpty()
   password!: string;
 }
+
+// Zod схема для валидации
+export const LoginUserDtoSchema = LoginUserSchema;
+
 

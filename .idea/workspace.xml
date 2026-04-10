@@ -4,27 +4,57 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1fb754b-d9ed-492b-b710-071017fffef2" name="Changes" comment="Refactor authentication DTOs and update user profile response structure">
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/decorators/api-exception.decorator.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/app.exception.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/api/src/common/middleware/load-user.middleware.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/contracts/src/auth/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/contracts/src/auth/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/contracts/src/index.ts" afterDir="false" />
+    <list default="true" id="f1fb754b-d9ed-492b-b710-071017fffef2" name="Changes" comment="Implement custom exception handling and refactor authentication logic">
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/pipes/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/pipes/zod-validation.pipe.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/zod-dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/app/login/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/app/register/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/components/auth/auth-context.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/components/auth/auth-page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/components/auth/auth-shell.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/components/auth/login-form.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/components/auth/register-form.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/components/dto-form.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/components/form-field.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/hooks/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/hooks/useDtoForm.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/hooks/useFormFieldsFromSchema.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/hooks/useFormState.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/hooks/useZodForm.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/lib/api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/web/lib/form-types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/contracts/src/auth/helpers.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/contracts/src/auth/schemas.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilotDiffState.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilotDiffState.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/common/decorators/current-user.decorator.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/common/decorators/current-user.decorator.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/common/decorators/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/common/decorators/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/common/exceptions/invalid-credentials.exception.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/invalid-credentials.exception.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/common/exceptions/invalid-token.exception.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/invalid-token.exception.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/common/exceptions/user-already-exists.exception.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/user-already-exists.exception.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/common/exceptions/user-not-found.exception.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/user-not-found.exception.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/common/strategies/jwt.strategy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/common/strategies/jwt.strategy.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/auth.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/auth.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API_USAGE_GUIDE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/common/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/common/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/controllers/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/controllers/auth.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/auth/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/auth/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/auth/login-user.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/auth/login-user.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/auth/refresh-token.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/auth/refresh-token.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/token/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/token/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/token/refresh-token.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/token/refresh-token.dto.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/token/token-response.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/token/token-response.dto.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/base-user.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/base-user.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/create-user.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/create-user.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/login-user.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/login-user.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/user-profile.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/user/user-profile.dto.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/api/src/modules/auth/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/services/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/api/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/api/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/next-env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/next-env.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/next.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/next.config.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/web/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/web/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/contracts/src/auth/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/contracts/src/auth/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/contracts/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/contracts/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/ui/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/ui/src/components/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/ui/src/components/button.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +152,8 @@
       <workItem from="1775825959658" duration="1641000" />
       <workItem from="1775827607447" duration="3282000" />
       <workItem from="1775830901529" duration="1187000" />
-      <workItem from="1775832094723" duration="3715000" />
+      <workItem from="1775832094723" duration="9263000" />
+      <workItem from="1775841381463" duration="828000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -148,17 +179,50 @@
       <option name="project" value="LOCAL" />
       <updated>1775833917639</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Implement custom exception handling and refactor authentication logic">
+      <option name="closed" value="true" />
+      <created>1775835942457</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1775835942457</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/packages/contracts/src/index.js" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/index.d.ts" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/index.js.map" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/index.d.ts.map" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/schemas.d.ts.map" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/schemas.d.ts" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/types.js" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/types.js.map" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/index.d.ts" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/schemas.js.map" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/index.js" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/types.d.ts" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/schemas.js" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/types.d.ts.map" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/index.js.map" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/index.d.ts.map" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/helpers.d.ts.map" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/helpers.d.ts" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/helpers.js" />
+        <option value="$PROJECT_DIR$/packages/contracts/src/auth/helpers.js.map" />
+      </list>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Add initial project structure with essential files and configurations" />
     <MESSAGE value="Refactor authentication DTOs and update user profile response structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor authentication DTOs and update user profile response structure" />
+    <MESSAGE value="Implement custom exception handling and refactor authentication logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement custom exception handling and refactor authentication logic" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

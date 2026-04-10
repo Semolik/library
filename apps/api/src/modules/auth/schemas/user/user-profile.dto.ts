@@ -1,12 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BaseUserDto } from './base-user.dto';
 
-export class UserProfileDto extends BaseUserDto {
+export class UserProfileDto {
   @ApiProperty({
     example: 1,
     description: 'ID пользователя',
   })
   id!: number;
+
+  @ApiProperty({
+    example: 'user@example.com',
+    description: 'Email пользователя',
+  })
+  email!: string;
 
   @ApiProperty({
     example: '2026-04-10T12:00:00Z',
@@ -16,4 +21,3 @@ export class UserProfileDto extends BaseUserDto {
   })
   createdAt!: Date;
 }
-
