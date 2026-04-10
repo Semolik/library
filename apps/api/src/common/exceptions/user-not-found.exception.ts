@@ -1,8 +1,16 @@
-import { UnauthorizedException } from '@nestjs/common';
+import { AppException } from './app.exception';
 
-export class UserNotFoundError extends UnauthorizedException {
+export class UserNotFoundError extends AppException {
+  readonly statusCode = 401;
+  readonly message = 'User not found';
+  readonly description = 'Не авторизован';
+
   constructor() {
-    super('User not found');
+    super({
+      statusCode: 401,
+      message: 'User not found',
+      description: 'Не авторизован',
+    });
   }
 }
 

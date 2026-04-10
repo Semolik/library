@@ -4,9 +4,13 @@ import * as bcrypt from 'bcrypt';
 import { PrismaService } from '@common/services/prisma.service';
 import { ConfigService } from '@config/config.service';
 import { UserAlreadyExistsError, InvalidCredentialsError, InvalidTokenError, UserNotFoundError } from '@common/exceptions';
-import type { JwtPayload, TokenResponse } from '@workspace/contracts';
 import { CreateUserDto, LoginUserDto } from '@modules/auth/schemas/user';
-import { User } from '@prisma/client';
+import { User, Prisma } from '@prisma/client';
+
+interface JwtPayload {
+  sub: number;
+  type: 'access' | 'refresh';
+}
 
 @Injectable()
 export class AuthService {
@@ -16,39 +20,32 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
 
-  async register(createUserDto: CreateUserDto): Promise<TokenResponse> {
-    const { email, username, password } = createUserDto;
+  async register(createUserDto: CreateUserDto) {
+    const { email, password } = createUserDto;
 
     const existingUserByEmail = await this.prisma.user.findUnique({
       where: { email },
     });
 
     if (existingUserByEmail) {
-      throw new UserAlreadyExistsError('email');
-    }
-
-    const existingUserByUsername = await this.prisma.user.findUnique({
-      where: { username },
-    });
-
-    if (existingUserByUsername) {
-      throw new UserAlreadyExistsError('username');
+      throw new UserAlreadyExistsError();
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const userData: Prisma.UserCreateInput = {
+      email,
+      password: hashedPassword,
+    };
+
     const user = await this.prisma.user.create({
-      data: {
-        email,
-        username,
-        password: hashedPassword,
-      },
+      data: userData,
     });
 
     return this.generateTokens(user);
   }
 
-  async login(loginUserDto: LoginUserDto): Promise<TokenResponse> {
+  async login(loginUserDto: LoginUserDto) {
     const { email, password } = loginUserDto;
 
     const user = await this.prisma.user.findUnique({
@@ -68,7 +65,7 @@ export class AuthService {
     return this.generateTokens(user);
   }
 
-  async refreshToken(refreshToken: string): Promise<TokenResponse> {
+  async refreshToken(refreshToken: string) {
     let payload: JwtPayload;
 
     try {
@@ -92,18 +89,14 @@ export class AuthService {
     return this.generateTokens(user);
   }
 
-  private generateTokens(user: User): TokenResponse {
-    const accessPayload: JwtPayload = {
+  private generateTokens(user: User) {
+    const accessPayload = {
       sub: user.id,
-      email: user.email,
-      username: user.username,
       type: 'access',
     };
 
-    const refreshPayload: JwtPayload = {
+    const refreshPayload = {
       sub: user.id,
-      email: user.email,
-      username: user.username,
       type: 'refresh',
     };
 
@@ -119,11 +112,6 @@ export class AuthService {
       accessToken,
       refreshToken,
       expiresIn: this.configService.jwtExpiration,
-      user: {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-      },
     };
   }
 }

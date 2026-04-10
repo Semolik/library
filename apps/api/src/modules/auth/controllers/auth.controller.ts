@@ -7,12 +7,12 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 import { AuthService } from '@modules/auth/services/auth.service';
-import { CurrentUser } from '@common/decorators';
+import { CurrentUser, ApiException } from '@common/decorators';
 import { CreateUserDto, LoginUserDto, UserProfileDto } from '@modules/auth/schemas/user';
 import { RefreshTokenDto, TokenResponseDto } from '@modules/auth/schemas/token';
-import type { TokenResponse } from '@workspace/contracts';
 import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
 import { User } from '@prisma/client';
+import { UserAlreadyExistsError, InvalidCredentialsError, InvalidTokenError, UserNotFoundError } from '@common/exceptions';
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
@@ -26,8 +26,8 @@ export class AuthController {
     description: 'Пользователь успешно зарегистрирован',
     type: TokenResponseDto,
   })
-  @ApiResponse({ status: 400, description: 'Ошибка валидации' })
-  async register(@Body() createUserDto: CreateUserDto): Promise<TokenResponse> {
+  @ApiException(UserAlreadyExistsError)
+  async register(@Body() createUserDto: CreateUserDto) {
     return this.authService.register(createUserDto);
   }
 
@@ -40,8 +40,8 @@ export class AuthController {
     description: 'Вход выполнен успешно',
     type: TokenResponseDto,
   })
-  @ApiResponse({ status: 401, description: 'Неверные учётные данные' })
-  async login(@Body() loginUserDto: LoginUserDto): Promise<TokenResponse> {
+  @ApiException(InvalidCredentialsError)
+  async login(@Body() loginUserDto: LoginUserDto) {
     return this.authService.login(loginUserDto);
   }
 
@@ -54,8 +54,8 @@ export class AuthController {
     description: 'Токен успешно обновлён',
     type: TokenResponseDto,
   })
-  @ApiResponse({ status: 401, description: 'Невалидный refresh token' })
-  async refresh(@Body() refreshTokenDto: RefreshTokenDto): Promise<TokenResponse> {
+  @ApiException(InvalidTokenError)
+  async refresh(@Body() refreshTokenDto: RefreshTokenDto) {
     return this.authService.refreshToken(refreshTokenDto.refreshToken);
   }
 
@@ -68,8 +68,8 @@ export class AuthController {
     description: 'Профиль пользователя',
     type: UserProfileDto,
   })
-  @ApiResponse({ status: 401, description: 'Не авторизован' })
-  async getProfile(@CurrentUser() user: User): Promise<UserProfileDto> {
+  @ApiException(UserNotFoundError)
+  async getProfile(@CurrentUser() user: User) {
     return user;
   }
 }

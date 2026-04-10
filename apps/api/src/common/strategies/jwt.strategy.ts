@@ -3,7 +3,11 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigService } from '@config/config.service';
 import { InvalidTokenError } from '@common/exceptions';
-import type { JwtPayload } from '@workspace/contracts';
+
+interface JwtPayload {
+  sub: number;
+  type: 'access' | 'refresh';
+}
 
 const tokenSchema = (payload: JwtPayload) => {
   if (!payload.sub) {
@@ -27,21 +31,19 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: JwtPayload): Promise<{ id: number; email: string; username: string }> {
+  async validate(payload: JwtPayload): Promise<{ id: number }> {
     const validatedPayload = tokenSchema(payload);
-    this.logger.debug(`[JWT] Validating token for user ${validatedPayload.sub}, email: ${validatedPayload.email}, type: ${validatedPayload.type}`);
+    this.logger.debug(`[JWT] Validating token for user ${validatedPayload.sub}, type: ${validatedPayload.type}`);
 
     if (validatedPayload.type !== 'access') {
       this.logger.warn(`[JWT] Validation failed: Invalid token type: ${validatedPayload.type}, expected: access`);
       throw new InvalidTokenError('Invalid token type');
     }
 
-    this.logger.log(`[JWT] Token validated successfully for user ${validatedPayload.sub} (${validatedPayload.email})`);
+    this.logger.log(`[JWT] Token validated successfully for user ${validatedPayload.sub}`);
 
     return {
       id: validatedPayload.sub,
-      email: validatedPayload.email,
-      username: validatedPayload.username,
     };
   }
 }

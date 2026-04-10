@@ -1,8 +1,16 @@
-import { UnauthorizedException } from '@nestjs/common';
+import { AppException } from './app.exception';
 
-export class InvalidCredentialsError extends UnauthorizedException {
+export class InvalidCredentialsError extends AppException {
+  readonly statusCode = 401;
+  readonly message = 'Invalid credentials';
+  readonly description = 'Неверные учётные данные';
+
   constructor() {
-    super('Invalid credentials');
+    super({
+      statusCode: 401,
+      message: 'Invalid credentials',
+      description: 'Неверные учётные данные',
+    });
   }
 }
 

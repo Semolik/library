@@ -1,8 +1,17 @@
-import { UnauthorizedException } from '@nestjs/common';
+import { AppException } from './app.exception';
 
-export class InvalidTokenError extends UnauthorizedException {
-  constructor(message = 'Invalid token') {
-    super(message);
+export class InvalidTokenError extends AppException {
+  readonly statusCode = 401;
+  readonly description = 'Невалидный токен';
+  readonly message: string;
+
+  constructor(message: string = 'Invalid token') {
+    super({
+      statusCode: 401,
+      message: message,
+      description: 'Невалидный токен',
+    });
+    this.message = message;
   }
 }
 
