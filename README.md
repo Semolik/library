@@ -1,6 +1,134 @@
 
 # Информационная система библиотеки
 
+## Быстрый старт
+
+Этот проект использует **Turbo** монорепо с **Next.js** (web) и **NestJS** (api).
+
+### Установка зависимостей
+
+```bash
+npm install
+```
+
+### Первичная настройка
+
+```bash
+# 1. Инициализировать переменные окружения
+npm run init:env
+npm run verify:env
+
+# 2. Запустить PostgreSQL (в Docker)
+npm run docker:db
+
+# 3. Инициализировать БД (в другом терминале)
+npm run db:init
+```
+
+### Запуск в режиме разработки
+
+```bash
+npm run dev
+```
+
+Это запустит одновременно:
+- **Frontend**: http://localhost:3000 (Next.js)
+- **Backend API**: http://localhost:3001 (NestJS)
+
+### Другие команды
+
+```bash
+npm run build       # Сборка всех приложений
+npm run lint        # Проверка кода
+npm run typecheck   # Проверка TypeScript типов
+npm run format      # Форматирование кода
+
+# База данных
+npm run db:init     # Инициализировать БД с миграциями
+npm run db:migrate  # Создать новую миграцию
+npm run db:reset    # Сбросить БД (удалит все данные)
+npm run db:seed     # Заполнить БД тестовыми данными
+
+# Docker
+npm run docker:db        # Запустить только PostgreSQL
+npm run docker:all       # Запустить все сервисы
+```
+
+**Для подробной информации смотрите [DATABASE_SETUP.md](./DATABASE_SETUP.md)**
+
+## Структура проекта
+
+```
+apps/
+├── web/           # Next.js приложение (frontend)
+│   └── app/       # Next.js App Router
+└── api/           # NestJS приложение (backend)
+    ├── src/
+    │   ├── common/        # Общие компоненты (guards, strategies)
+    │   ├── config/        # Конфигурация
+    │   ├── modules/       # Модули функционала
+    │   │   └── auth/      # Auth модуль (регистрация, вход, JWT)
+    │   ├── app.module.ts
+    │   └── main.ts
+    ├── prisma/            # ORM конфигурация и миграции
+    ├── ARCHITECTURE.md    # Подробное описание архитектуры
+    └── QUICK_START.md     # Быстрый старт для API
+
+packages/
+├── ui/            # Общие UI компоненты
+├── eslint-config/ # ESLint конфигурация
+└── typescript-config/ # TypeScript конфигурация
+```
+
+## 🔐 API Endpoints
+
+### Health Check
+- `GET /api/health` - Проверка здоровья приложения
+
+### Аутентификация
+- `POST /auth/register` - Регистрация нового пользователя
+- `POST /auth/login` - Вход пользователя
+- `POST /auth/refresh` - Обновление Access Token
+- `GET /auth/profile` - Получить профиль (защищено JWT)
+
+Подробнее см. [API документацию](./apps/api/ARCHITECTURE.md#auth-модуль)
+
+## 📚 Документация
+
+- [API Architecture](./apps/api/ARCHITECTURE.md) - Подробное описание модульной архитектуры API
+- [API Quick Start](./apps/api/QUICK_START.md) - Инструкции по запуску и настройке
+- [NestJS Setup](./NESTJS_INTEGRATION.md) - Интеграция NestJS в проект
+- [Project Setup](./SETUP.md) - Общая настройка проекта
+
+## 🛠️ Использованные технологии
+
+### Frontend
+- Next.js 15+
+- React 19+
+- TypeScript
+- Tailwind CSS
+
+### Backend
+- NestJS 11+
+- Prisma 5+ (ORM)
+- PostgreSQL
+- JWT Authentication
+- Bcrypt (password hashing)
+- Passport
+- class-validator
+
+### Инфраструктура
+- Turbo (monorepo)
+- ESLint
+- Prettier
+- TypeScript
+
+```bash
+curl http://localhost:3001/api/health
+```
+
+---
+
 ## Общие требования
 
 Система должна иметь интуитивно понятный интерфейс, адаптивный дизайн и обеспечивать удобный доступ к управлению библиотечными ресурсами на любых устройствах.

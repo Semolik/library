@@ -4,57 +4,93 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1fb754b-d9ed-492b-b710-071017fffef2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.npmrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.prettierignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/app/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/app/layout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/app/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/components.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/components/.gitkeep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/components/theme-provider.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/eslint.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/hooks/.gitkeep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/lib/.gitkeep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/next-env.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/next.config.mjs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/postcss.config.mjs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/web/tsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/eslint-config/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/eslint-config/base.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/eslint-config/next.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/eslint-config/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/eslint-config/react-internal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/typescript-config/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/typescript-config/base.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/typescript-config/nextjs.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/typescript-config/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/typescript-config/react-library.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/ui/components.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/ui/eslint.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/ui/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/ui/postcss.config.mjs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/ui/src/components/.gitkeep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/ui/src/components/button.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/ui/src/hooks/.gitkeep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/ui/src/lib/.gitkeep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/ui/src/lib/utils.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/ui/src/styles/globals.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/ui/tsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/ui/tsconfig.lint.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/turbo.json" afterDir="false" />
+    <list default="true" id="f1fb754b-d9ed-492b-b710-071017fffef2" name="Changes" comment="Initial commit">
+      <change afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/API_USAGE_GUIDE.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MIGRATION_CHECKLIST.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MIGRATION_SUMMARY.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/REDIS_REMOVAL_MIGRATION.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UPDATE_SUMMARY.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/eslint.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/prisma/migrations/0_init/migration.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/prisma/schema.prisma" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/prisma/seed.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/scripts/db-init.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/scripts/start-dev.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/app.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/app.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/app.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/decorators/current-user.decorator.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/decorators/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/decorators/public.decorator.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/invalid-credentials.exception.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/invalid-token.exception.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/user-already-exists.exception.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/exceptions/user-not-found.exception.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/guards/jwt-auth.guard.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/services/database.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/services/health-check.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/services/prisma.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/services/token-storage.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/common/strategies/jwt.strategy.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/config/config.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/config/config.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/config/env.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/config/env.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/config/env.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/main.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/auth.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/controllers/auth.controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/controllers/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/entities/jwt-payload.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/create-user.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/login-user.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/refresh-token.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/schemas/token-response.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/services/auth.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/auth/services/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/src/modules/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/test-api.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/api/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment/Dockerfile.web" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment/_docker-compose.base.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment/docker-compose.local.full.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment/docker-compose.local.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment/init-db.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/contracts/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/contracts/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/init-db.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/init-env.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/setup.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/start-all.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/start-db.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/verify-env.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/with-env.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/turbo.json" beforeDir="false" afterPath="$PROJECT_DIR$/turbo.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dockerfile" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -75,6 +111,9 @@
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="3BFDaP62ilW3FvuOIttdHUGiduX" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -84,17 +123,21 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/semolik/PycharmProjects/library/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.github.copilot.settings.network.NetworkConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/semolik/PycharmProjects/library/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/deployment" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
@@ -114,12 +157,44 @@
       <option name="presentableId" value="Default" />
       <updated>1774075988839</updated>
       <workItem from="1774075990604" duration="1703000" />
-      <workItem from="1774077859202" duration="217000" />
+      <workItem from="1774077859202" duration="452000" />
+      <workItem from="1775380986231" duration="244000" />
+      <workItem from="1775381240578" duration="34000" />
+      <workItem from="1775381337664" duration="62000" />
+      <workItem from="1775381402073" duration="947000" />
+      <workItem from="1775382354528" duration="930000" />
+      <workItem from="1775383855430" duration="52000" />
+      <workItem from="1775383915940" duration="1877000" />
+      <workItem from="1775385801320" duration="471000" />
+      <workItem from="1775386276829" duration="463000" />
+      <workItem from="1775386745494" duration="3839000" />
+      <workItem from="1775501456037" duration="272000" />
+      <workItem from="1775501736280" duration="342000" />
+      <workItem from="1775502081424" duration="3445000" />
+      <workItem from="1775798999407" duration="638000" />
+      <workItem from="1775800547558" duration="1224000" />
+      <workItem from="1775825959658" duration="1641000" />
+      <workItem from="1775827607447" duration="3282000" />
+      <workItem from="1775830901529" duration="1187000" />
+      <workItem from="1775832094723" duration="1004000" />
     </task>
+    <task id="LOCAL-00001" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1774078149812</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1774078149812</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

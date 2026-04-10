@@ -7,7 +7,21 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "turbo format",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "init:env": "node scripts/init-env.js",
+    "verify:env": "node scripts/verify-env.js",
+    "db:init": "bash scripts/init-db.sh",
+    "db:migrate": "cross-env-shell NODE_ENV=development DATABASE_URL=postgresql://postgres:postgres@localhost:5432/library \"npm --workspace @workspace/api run db:migrate\"",
+    "db:push": "cross-env-shell NODE_ENV=development DATABASE_URL=postgresql://postgres:postgres@localhost:5432/library \"npm --workspace @workspace/api run db:push\"",
+    "db:generate": "cross-env-shell NODE_ENV=development DATABASE_URL=postgresql://postgres:postgres@localhost:5432/library \"npm --workspace @workspace/api run db:generate\"",
+    "db:seed": "cross-env-shell NODE_ENV=development DATABASE_URL=postgresql://postgres:postgres@localhost:5432/library \"npm --workspace @workspace/api run db:seed\"",
+    "db:reset": "cross-env-shell NODE_ENV=development DATABASE_URL=postgresql://postgres:postgres@localhost:5432/library \"npm --workspace @workspace/api run db:reset\"",
+    "api:dev": "npm --workspace @workspace/api run dev",
+    "web:dev": "cd apps/web && npm run dev",
+    "docker:db": "docker-compose -f deployment/docker-compose.local.yaml up postgres",
+    "docker:db:down": "docker-compose -f deployment/docker-compose.local.yaml down postgres",
+    "docker:all": "docker-compose -f deployment/docker-compose.local.full.yaml up",
+    "docker:all:down": "docker-compose -f deployment/docker-compose.local.full.yaml down"
   },
   "packageManager": "npm@11.4.2",
   "devDependencies": {
