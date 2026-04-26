@@ -1,39 +1,30 @@
 import {
-  Column,
-  CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import { PermissionModel } from './permission.model';
 import { RoleModel } from './role.model';
 
-@Entity({ name: 'permission_role', schema: 'security' })
+@Entity({ name: 'roles_x_permissions', schema: 'security' })
 export class PermissionRoleModel {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column({ type: 'uuid' })
+  @PrimaryColumn({ type: 'uuid', name: 'permission_id' })
   permissionId: string;
 
-  @Column({ type: 'uuid' })
+  @PrimaryColumn({ type: 'uuid', name: 'role_id' })
   roleId: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 
   @ManyToOne(() => PermissionModel, (permission) => permission.permissionRoles, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'permission_id', referencedColumnName: 'id' })
   permission: PermissionModel;
 
   @ManyToOne(() => RoleModel, (role) => role.permissionRoles, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
   role: RoleModel;
 }
 

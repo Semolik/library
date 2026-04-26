@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { RoleModel } from '../../security/models/role.model';
 import { UserRoleModel } from '../../security/models/user-role.model';
+import { RentedBookModel } from '../../library/models/rented-book.model';
 
 @Entity({ name: 'users', schema: 'public' })
 export class UserModel {
@@ -27,6 +28,12 @@ export class UserModel {
   @Column({ type: 'varchar', length: 255, nullable: true })
   lastName: string | null;
 
+  @Column({ type: 'varchar', length: 255, nullable: true, name: 'middle_name' })
+  middleName: string | null;
+
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  phone: string | null;
+
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
 
@@ -41,5 +48,8 @@ export class UserModel {
 
   @OneToMany(() => UserRoleModel, (userRole) => userRole.user)
   userRoles: UserRoleModel[];
+
+  @OneToMany(() => RentedBookModel, (rentedBook) => rentedBook.user)
+  rents: RentedBookModel[];
 }
 

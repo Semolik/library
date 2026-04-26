@@ -1,5 +1,6 @@
 import { plainToInstance } from 'class-transformer';
 import {
+  IsBoolean,
   IsEnum,
   IsNumber,
   IsOptional,
@@ -59,6 +60,30 @@ export class EnvironmentVariables {
   @IsOptional()
   CORS_ORIGIN: string = 'http://localhost:3000,http://localhost:3001';
 
+  @IsString()
+  @IsOptional()
+  MINIO_ENDPOINT: string = 'localhost';
+
+  @IsNumber()
+  @IsOptional()
+  MINIO_PORT: number = 9000;
+
+  @IsString()
+  @IsOptional()
+  MINIO_ACCESS_KEY: string = 'minioadmin';
+
+  @IsString()
+  @IsOptional()
+  MINIO_SECRET_KEY: string = 'minioadmin';
+
+  @IsString()
+  @IsOptional()
+  MINIO_BUCKET_NAME: string = 'library-files';
+
+  @IsBoolean()
+  @IsOptional()
+  MINIO_USE_SSL: boolean = false;
+
   constructor() {
     Object.assign(this, {
       NODE_ENV: process.env.NODE_ENV || Environment.Development,
@@ -78,6 +103,14 @@ export class EnvironmentVariables {
       FIRST_SUPERUSER_PASSWORD: process.env.FIRST_SUPERUSER_PASSWORD || 'admin123456',
       CORS_ORIGIN:
         process.env.CORS_ORIGIN || 'http://localhost:3000,http://localhost:3001',
+      MINIO_ENDPOINT: process.env.MINIO_ENDPOINT || 'localhost',
+      MINIO_PORT: parseInt(process.env.MINIO_PORT || '9000', 10),
+      MINIO_ACCESS_KEY: process.env.MINIO_ACCESS_KEY || 'minioadmin',
+      MINIO_SECRET_KEY: process.env.MINIO_SECRET_KEY || 'minioadmin',
+      MINIO_BUCKET_NAME: process.env.MINIO_BUCKET_NAME || 'library-files',
+      MINIO_USE_SSL: ['1', 'true', 'yes', 'on'].includes(
+        (process.env.MINIO_USE_SSL || 'false').toLowerCase(),
+      ),
     });
   }
 

@@ -5,6 +5,19 @@ import { RoleModel } from '../modules/security/models/role.model';
 import { PermissionModel } from '../modules/security/models/permission.model';
 import { UserRoleModel } from '../modules/security/models/user-role.model';
 import { PermissionRoleModel } from '../modules/security/models/permission-role.model';
+import {
+  AuthorModel,
+  BookAuthorModel,
+  BookCopyModel,
+  BookModel,
+  CategoryModel,
+  CityModel,
+  PaidRentFineModel,
+  PublishingHouseModel,
+  RentedBookModel,
+  ReturnBookModel,
+  StorageModel,
+} from '../modules/library/models';
 
 export function getDatabaseConfig(env: EnvironmentVariables): TypeOrmModuleOptions {
   return {
@@ -20,6 +33,17 @@ export function getDatabaseConfig(env: EnvironmentVariables): TypeOrmModuleOptio
       PermissionModel,
       UserRoleModel,
       PermissionRoleModel,
+      CategoryModel,
+      PublishingHouseModel,
+      CityModel,
+      BookModel,
+      BookAuthorModel,
+      AuthorModel,
+      BookCopyModel,
+      StorageModel,
+      RentedBookModel,
+      ReturnBookModel,
+      PaidRentFineModel,
     ],
     // Do not mutate schema on app startup; use explicit migration scripts.
     synchronize: false,

@@ -14,6 +14,14 @@ const PAGE_TITLES: Record<string, string> = {
   "/account": "Аккаунт",
   "/users": "Пользователи",
   "/admin": "Админка",
+  "/admin/categories": "Категории",
+  "/admin/publishing-houses": "Издательства",
+  "/admin/cities": "Города",
+  "/admin/storages": "Залы хранения",
+  "/admin/authors": "Авторы",
+  "/admin/books": "Книги",
+  "/admin/book-copies": "Экземпляры книг",
+  "/admin/rentals": "Выдачи и возвраты",
 }
 
 export function AppShell({ children }: { children: React.ReactNode }) {

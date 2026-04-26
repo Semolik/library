@@ -6,6 +6,19 @@ import { RoleModel } from '../modules/security/models/role.model';
 import { PermissionModel } from '../modules/security/models/permission.model';
 import { UserRoleModel } from '../modules/security/models/user-role.model';
 import { PermissionRoleModel } from '../modules/security/models/permission-role.model';
+import {
+  AuthorModel,
+  BookAuthorModel,
+  BookCopyModel,
+  BookModel,
+  CategoryModel,
+  CityModel,
+  PaidRentFineModel,
+  PublishingHouseModel,
+  RentedBookModel,
+  ReturnBookModel,
+  StorageModel,
+} from '../modules/library/models';
 
 dotenv.config();
 
@@ -24,6 +37,17 @@ export default new DataSource({
     PermissionModel,
     UserRoleModel,
     PermissionRoleModel,
+    CategoryModel,
+    PublishingHouseModel,
+    CityModel,
+    BookModel,
+    BookAuthorModel,
+    AuthorModel,
+    BookCopyModel,
+    StorageModel,
+    RentedBookModel,
+    ReturnBookModel,
+    PaidRentFineModel,
   ],
   migrations: ['src/database/migrations/*{.ts,.js}'],
   synchronize: false,

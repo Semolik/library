@@ -79,7 +79,7 @@ async function seed() {
           const existingPermissionRole = await dataSource.query(
             `
               SELECT id
-              FROM "security"."permission_role"
+              FROM "security"."roles_x_permissions"
               WHERE
                 "permission_id" = $1
                 AND
@@ -92,7 +92,7 @@ async function seed() {
           if (!existingPermissionRole.length) {
             await dataSource.query(
               `
-                INSERT INTO "security"."permission_role"
+                INSERT INTO "security"."roles_x_permissions"
                 ("permission_id", "role_id")
                 VALUES ($1, $2)
               `,
@@ -141,7 +141,7 @@ async function seed() {
     const existingUserRole = await dataSource.query(
       `
         SELECT id
-        FROM "security"."user_role"
+        FROM "security"."roles_x_users"
         WHERE
           "user_id" = $1
           AND
@@ -154,7 +154,7 @@ async function seed() {
     if (!existingUserRole.length) {
       await dataSource.query(
         `
-          INSERT INTO "security"."user_role"
+          INSERT INTO "security"."roles_x_users"
           ("user_id", "role_id")
           VALUES ($1, $2)
         `,

@@ -4,6 +4,7 @@ import { useSyncExternalStore } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
+  BadgeCheck,
   BookCopy,
   BookOpen,
   Building2,
@@ -28,9 +29,11 @@ const tabs = [
   { href: "/catalog", label: "Каталог", icon: Library },
   { href: "/genres", label: "Жанры", icon: ListFilter },
   { href: "/history", label: "История", icon: BookOpen },
+  { href: "/account", label: "Аккаунт", icon: BadgeCheck },
 ] as const
 
 const adminTabs = [
+  { href: "/admin", label: "Админка", icon: Layers },
   { href: "/users", label: "Пользователи", icon: Users },
   { href: "/admin/categories", label: "Категории", icon: Tags },
   { href: "/admin/publishing-houses", label: "Издательства", icon: Building2 },
@@ -38,6 +41,7 @@ const adminTabs = [
   { href: "/admin/storages", label: "Залы", icon: Layers },
   { href: "/admin/authors", label: "Авторы", icon: PenTool },
   { href: "/admin/books", label: "Книги", icon: BookCopy },
+  { href: "/admin/book-copies", label: "Экземпляры", icon: BookCopy },
   { href: "/admin/rentals", label: "Аренда", icon: ClipboardList },
 ] as const
 

@@ -36,7 +36,7 @@ export class RoleModel {
     onDelete: 'CASCADE',
   })
   @JoinTable({
-    name: 'user_role',
+    name: 'roles_x_users',
     schema: 'security',
     joinColumn: { name: 'role_id', referencedColumnName: 'id' },
     inverseJoinColumn: { name: 'user_id', referencedColumnName: 'id' },
@@ -50,7 +50,7 @@ export class RoleModel {
     onDelete: 'CASCADE',
   })
   @JoinTable({
-    name: 'permission_role',
+    name: 'roles_x_permissions',
     schema: 'security',
     joinColumn: { name: 'role_id', referencedColumnName: 'id' },
     inverseJoinColumn: { name: 'permission_id', referencedColumnName: 'id' },

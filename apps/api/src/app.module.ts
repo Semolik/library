@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { SecurityModule } from './modules/security/security.module';
+import { LibraryModule } from './modules/library/library.module';
 import { EnvironmentVariables, validate } from './config/env.validation';
 import { getDatabaseConfig } from './config/database.config';
 import * as dotenv from 'dotenv';
@@ -24,6 +25,7 @@ const env = new EnvironmentVariables();
     UserModule,
     AuthModule,
     SecurityModule,
+    LibraryModule,
   ],
   controllers: [],
   providers: [

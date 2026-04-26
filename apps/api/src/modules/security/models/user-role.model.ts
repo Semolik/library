@@ -1,39 +1,30 @@
 import {
-  Column,
-  CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import { UserModel } from '../../user/models/user.model';
 import { RoleModel } from './role.model';
 
-@Entity({ name: 'user_role', schema: 'security' })
+@Entity({ name: 'roles_x_users', schema: 'security' })
 export class UserRoleModel {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column({ type: 'uuid' })
+  @PrimaryColumn({ type: 'uuid', name: 'user_id' })
   userId: string;
 
-  @Column({ type: 'uuid' })
+  @PrimaryColumn({ type: 'uuid', name: 'role_id' })
   roleId: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 
   @ManyToOne(() => UserModel, (user) => user.userRoles, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: UserModel;
 
   @ManyToOne(() => RoleModel, (role) => role.userRoles, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
   role: RoleModel;
 }
 
