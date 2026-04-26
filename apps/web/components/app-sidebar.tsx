@@ -4,12 +4,18 @@ import { useSyncExternalStore } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
-  Shield,
+  BookCopy,
   BookOpen,
+  Building2,
+  ClipboardList,
   House,
+  Layers,
   Library,
   ListFilter,
   LogIn,
+  MapPin,
+  PenTool,
+  Tags,
   Users,
 } from "lucide-react"
 import { Button } from "@workspace/ui/components/button"
@@ -26,7 +32,13 @@ const tabs = [
 
 const adminTabs = [
   { href: "/users", label: "Пользователи", icon: Users },
-  { href: "/admin", label: "Админка", icon: Shield },
+  { href: "/admin/categories", label: "Категории", icon: Tags },
+  { href: "/admin/publishing-houses", label: "Издательства", icon: Building2 },
+  { href: "/admin/cities", label: "Города", icon: MapPin },
+  { href: "/admin/storages", label: "Залы", icon: Layers },
+  { href: "/admin/authors", label: "Авторы", icon: PenTool },
+  { href: "/admin/books", label: "Книги", icon: BookCopy },
+  { href: "/admin/rentals", label: "Аренда", icon: ClipboardList },
 ] as const
 
 export function AppSidebar() {
@@ -34,7 +46,10 @@ export function AppSidebar() {
   const { isAuthenticated, user, logout } = useAuth()
   const displayName = [user?.firstName, user?.lastName].filter(Boolean).join(" ").trim()
   const isAdmin = Boolean(
-    user?.roles?.some((role) => role === "SUPERUSER" || role === "ADMIN"),
+    user?.roles?.some((role) => {
+      const roleName = typeof role === "string" ? role : String((role as { name?: string })?.name ?? "")
+      return roleName === "SUPERUSER" || roleName === "ADMIN"
+    }),
   )
   const mounted = useSyncExternalStore(
     () => () => {},
@@ -51,7 +66,7 @@ export function AppSidebar() {
         <span className="text-lg font-semibold">Библиотека</span>
       </Link>
 
-      <nav className="flex flex-col gap-1">
+      <nav className="flex flex-col gap-1 overflow-y-auto pr-1">
         {visibleTabs.map((tab) => (
           <Link
             key={tab.href}
