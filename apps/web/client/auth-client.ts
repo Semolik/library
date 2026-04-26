@@ -1,7 +1,9 @@
 import { ApiClient, ApiError } from "@/client/api-client"
 import type { UserDto, UserLoginDto, UserRegisterDto } from "@workspace/shared-types"
 
-export type AuthUser = Pick<UserDto, "id" | "email" | "firstName" | "lastName">
+export type AuthUser = Pick<UserDto, "id" | "email" | "firstName" | "lastName"> & {
+  roles?: string[]
+}
 
 export type AuthResponse = {
   accessToken: string

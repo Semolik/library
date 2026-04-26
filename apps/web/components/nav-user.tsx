@@ -1,8 +1,6 @@
 "use client"
 
 import {
-  Bell,
-  CreditCard,
   LogOut,
   MoreVertical,
   UserCircle,
@@ -85,14 +83,6 @@ export function NavUser({ user, onLogout }: NavUserProps) {
               <UserCircle />
               Аккаунт
             </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <CreditCard />
-            Платежи
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Bell />
-            Уведомления
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

@@ -7,6 +7,7 @@ type AuthUser = {
   email: string
   firstName?: string
   lastName?: string
+  roles?: string[]
 }
 
 type AuthState = {

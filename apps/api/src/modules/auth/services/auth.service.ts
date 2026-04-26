@@ -43,7 +43,8 @@ export class AuthService {
       await this.userService.addRole(user.id, userRole.id);
     }
 
-    return this.login(user);
+    const refreshed = await this.userService.findById(user.id);
+    return this.login(refreshed ?? user);
   }
 
   async login(user: any) {
@@ -64,7 +65,7 @@ export class AuthService {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        roles: user.roles,
+        roles: roleNames,
       },
     };
   }

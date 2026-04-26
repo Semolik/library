@@ -4,11 +4,13 @@ import { useSyncExternalStore } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
+  Shield,
   BookOpen,
   House,
   Library,
   ListFilter,
   LogIn,
+  Users,
 } from "lucide-react"
 import { Button } from "@workspace/ui/components/button"
 import { cn } from "@workspace/ui/lib/utils"
@@ -22,15 +24,25 @@ const tabs = [
   { href: "/history", label: "История", icon: BookOpen },
 ] as const
 
+const adminTabs = [
+  { href: "/users", label: "Пользователи", icon: Users },
+  { href: "/admin", label: "Админка", icon: Shield },
+] as const
+
 export function AppSidebar() {
   const pathname = usePathname()
   const { isAuthenticated, user, logout } = useAuth()
   const displayName = [user?.firstName, user?.lastName].filter(Boolean).join(" ").trim()
+  const isAdmin = Boolean(
+    user?.roles?.some((role) => role === "SUPERUSER" || role === "ADMIN"),
+  )
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
     () => false,
   )
+  const visibleTabs =
+    mounted && isAuthenticated && isAdmin ? [...tabs, ...adminTabs] : tabs
 
   return (
     <aside className="flex h-screen w-72 shrink-0 flex-col border-r bg-muted/20 p-4">
@@ -40,7 +52,7 @@ export function AppSidebar() {
       </Link>
 
       <nav className="flex flex-col gap-1">
-        {tabs.map((tab) => (
+        {visibleTabs.map((tab) => (
           <Link
             key={tab.href}
             href={tab.href}
