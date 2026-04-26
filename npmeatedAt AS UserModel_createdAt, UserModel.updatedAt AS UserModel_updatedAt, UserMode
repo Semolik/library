@@ -1,0 +1,841 @@
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      �es_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserMol__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserMod"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."idFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f9bf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias" "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserMoEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-b","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS Name", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__Useoles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                           
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UseUserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"serModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"serModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_rolel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMexample.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAtdel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."idecurity"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                 
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id"odel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef20710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_idl_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles"l__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserM, "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a66763101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModes_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                          
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS Name", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."rEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-b","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS Name", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__Useoles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1= $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AsActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel". LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMexample.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAtdel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"serModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserMes" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1= $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AsActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModeLEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                 
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id"odel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef20710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_idl_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserMoEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-b","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."serModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."rEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4 ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", __UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4ample.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModell_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_idl_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserMoEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-b","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS Name", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__Useoles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2 $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserMode                  " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserMoles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAliaerModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-b","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS Name", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__Useoles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1= $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AsActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" 3cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_idl_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserMoEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-b","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS Name", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__Useoles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1= $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "publidel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f02742140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS Name", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__Useoles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1= $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AsActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModeLEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                 
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id"odel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS  "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserMoles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4"name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" ASupdatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."idecurity"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                 
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2"."permission_id" WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS "UserModel_email", "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."serModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se
+                      │
+                      │datedAt" FROM "public"."users" "UserModel" LEFT JOIN "security"."user_role" "UserModel__UserMo
+                      │del_roles_UserModel" ON "UserModel__UserModel_roles_UserModel"."user_id"="UserModel"."id" LEFT
+                      │ JOIN "security"."roles" "UserModel__UserModel_roles" ON "UserModel__UserModel_roles"."id"="Us
+                      │erModel__UserModel_roles_UserModel"."role_id"  LEFT JOIN "security"."permission_role" "f476190
+                      │9ca85ac840666ee8ce63980a7acaf1ae2" ON "f4761909ca85ac840666ee8ce63980a7acaf1ae2"."role_id"="Us
+                      │erModel__UserModel_roles"."id" LEFT JOIN "security"."permissions" "d3ef46a667f93cbf3d512071006
+                      │3101c465361b1" ON "d3ef46a667f93cbf3d5120710063101c465361b1"."id"="f4761909ca85ac840666ee8ce63
+                      │980a7acaf1ae2WHERE ( (("UserModel"."id" = $1)) ) AND ( "UserModel"."id" IN (
+                      │$2) ) -- PARAMETERS: ["7a4d2c11-2140-4f27-bb89-186f027491ac","7a4d2c11-2140-4f27-bb89-186f0274
+                       91ac"]                                                                                        
+                      │query: UPDATE "public"."users" SET "email" = $1, "firstName" = $2, "lastName" = $3, "updatedAt
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1
+                      │" = CURRENT_TIMESTAMP WHERE "id" IN ($4) -- PARAMETERS: ["name@example.com",null,null,"7a4d2c1ile changes.          │1-2140-4f27-bb89-186f027491ac"]                                                               
+↑ ↓ - Select          │query: SELECT DISTINCT "distinctAlias"."UserModel_id" AS "ids_UserModel_id" FROM (SELECT "User
+m - More binds        │Model"."id" AS "UserModel_id", "UserModel"."email" AS  "UserModel"."password
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last
+                       " AS "UserModel_password", "UserModel"."firstName" AS "UserModel_firstName", "UserModel"."last1 shared-types:dev     Name" AS "UserModel_lastName", "UserModel"."isActive" AS "UserModel_isActive", "UserModel"."cr
+                  > npmeatedAt" AS "UserModel_createdAt", "UserModel"."updatedAt" AS "UserModel_updatedAt", "UserMode
+                       l__UserModel_roles"."id" AS "UserModel__UserModel_roles_id", "UserModel__UserModel_roles"."nam
+                                                                                                          c - Copy se

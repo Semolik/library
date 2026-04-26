@@ -1,117 +1,80 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { PrismaService } from '@common/services/prisma.service';
-import { ConfigService } from '@config/config.service';
-import { UserAlreadyExistsError, InvalidCredentialsError, InvalidTokenError, UserNotFoundError } from '@common/exceptions';
-import type { CreateUserFormData, LoginUserFormData } from '@workspace/contracts/auth';
-import { User, Prisma } from '@prisma/client';
-
-interface JwtPayload {
-  sub: number;
-  type: 'access' | 'refresh';
-}
+import { UserService } from '../../user/services/user.service';
+import { RoleService } from '../../security/services/role.service';
+import { JwtPayloadDto } from '@workspace/shared-types';
+import { EnvironmentVariables } from '../../../config/env.validation';
 
 @Injectable()
 export class AuthService {
   constructor(
+    private userService: UserService,
+    private roleService: RoleService,
     private jwtService: JwtService,
-    private prisma: PrismaService,
-    private configService: ConfigService,
+    private env: EnvironmentVariables,
   ) {}
 
-  async register(createUserDto: CreateUserFormData) {
-    const { email, password } = createUserDto;
+  async validateUser(email: string, password: string) {
+    const user = await this.userService.findByEmail(email);
+    if (user && (await bcrypt.compare(password, user.password))) {
+      return user;
+    }
+    return null;
+  }
 
-    const existingUserByEmail = await this.prisma.user.findUnique({
-      where: { email },
-    });
-
-    if (existingUserByEmail) {
-      throw new UserAlreadyExistsError();
+  async register(email: string, password: string, firstName?: string, lastName?: string) {
+    const existingUser = await this.userService.findByEmail(email);
+    if (existingUser) {
+      throw new UnauthorizedException('User already exists');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    const userData: Prisma.UserCreateInput = {
+    const user = await this.userService.create(
       email,
-      password: hashedPassword,
-    };
+      hashedPassword,
+      firstName,
+      lastName,
+    );
 
-    const user = await this.prisma.user.create({
-      data: userData,
-    });
+    // Add default USER role
+    const userRole = await this.roleService.findByName('USER');
+    if (userRole) {
+      await this.userService.addRole(user.id, userRole.id);
+    }
 
-    return this.generateTokens(user);
+    return this.login(user);
   }
 
-  async login(loginUserDto: LoginUserFormData) {
-    const { email, password } = loginUserDto;
+  async login(user: any) {
+    const roleNames = user.roles?.map((role: { name: string }) => role.name) || [];
 
-    const user = await this.prisma.user.findUnique({
-      where: { email },
-    });
-
-    if (!user) {
-      throw new InvalidCredentialsError();
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordValid) {
-      throw new InvalidCredentialsError();
-    }
-
-    return this.generateTokens(user);
-  }
-
-  async refreshToken(refreshToken: string) {
-    let payload: JwtPayload;
-
-    try {
-      payload = this.jwtService.verify<JwtPayload>(refreshToken);
-    } catch {
-      throw new InvalidTokenError('Invalid refresh token');
-    }
-
-    if (payload.type !== 'refresh') {
-      throw new InvalidTokenError('Invalid token type');
-    }
-
-    const user = await this.prisma.user.findUnique({
-      where: { id: payload.sub },
-    });
-
-    if (!user) {
-      throw new UserNotFoundError();
-    }
-
-    return this.generateTokens(user);
-  }
-
-  private generateTokens(user: User) {
-    const accessPayload = {
+    const payload: JwtPayloadDto = {
       sub: user.id,
-      type: 'access',
+      email: user.email,
+      roles: roleNames,
     };
-
-    const refreshPayload = {
-      sub: user.id,
-      type: 'refresh',
-    };
-
-    const accessToken = this.jwtService.sign(accessPayload, {
-      expiresIn: 3600, // 1 час в секундах
-    });
-
-    const refreshToken = this.jwtService.sign(refreshPayload, {
-      expiresIn: 604800, // 7 дней в секундах
-    });
 
     return {
-      accessToken,
-      refreshToken,
-      expiresIn: this.configService.jwtExpiration,
+      accessToken: this.jwtService.sign(payload, {
+        expiresIn: this.env.JWT_EXPIRATION_TIME,
+      }),
+      user: {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        roles: user.roles,
+      },
     };
   }
+
+  async validateToken(token: string): Promise<JwtPayloadDto> {
+    try {
+      return this.jwtService.verify(token);
+    } catch {
+      throw new UnauthorizedException('Invalid token');
+    }
+  }
 }
+

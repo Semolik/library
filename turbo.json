@@ -5,7 +5,7 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
@@ -20,9 +20,11 @@
       "cache": false,
       "persistent": true
     },
-    "migrate": {
-      "cache": false,
-      "inputs": ["prisma/schema.prisma"]
+    "db:seed": {
+      "cache": false
+    },
+    "test": {
+      "cache": false
     }
   }
 }

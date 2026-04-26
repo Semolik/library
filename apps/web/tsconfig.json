@@ -4,8 +4,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@workspace/ui/*": ["../../packages/ui/src/*"],
-      "@workspace/contracts/*": ["../../packages/contracts/src/*"]
+      "@workspace/ui/globals.css": ["../../packages/ui/src/styles/globals.css"],
+      "@workspace/ui/*": ["../../packages/ui/src/*"]
     },
     "plugins": [
       {

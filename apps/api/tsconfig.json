@@ -1,36 +1,28 @@
 {
+  "extends": "@workspace/typescript-config/base.json",
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "lib": ["ES2021"],
     "target": "ES2021",
-    "lib": ["ES2021", "DOM"],
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictPropertyInitialization": false,
+    "incremental": true,
+    "isolatedModules": false,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "baseUrl": "./src",
+    "outDir": "./dist",
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./*"],
-      "@common/*": ["./common/*"],
-      "@config/*": ["./config/*"],
-      "@modules/*": ["./modules/*"],
-      "@env/*": ["./config/env/*"],
-      "@infra/*": ["./common/*"],
-      "@database/*": ["./common/services/*"],
-      "@auth/*": ["./common/strategies/*"],
-      "@cache/*": ["./common/services/*"],
-      "@http/*": ["./common/services/*"],
-      "@controllers/*": ["./modules/http/controllers/*"]
+      "@app/*": ["src/*"],
+      "@modules/*": ["src/modules/*"],
+      "@common/*": ["src/common/*"],
+      "@config/*": ["src/config/*"]
     }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }
+

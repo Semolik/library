@@ -1,70 +1,59 @@
-import * as dotenv from 'dotenv';
-import * as path from 'path';
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe, Logger } from '@nestjs/common';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { BadRequestException, ValidationError, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
-import { ConfigService } from '@config/config.service';
+import { EnvironmentVariables } from './config/env.validation';
 
-// Загружаем переменные окружения до инициализации приложения
-// Ищем в корне проекта (выше на 2 уровня от src/)
-const projectRoot = path.join(process.cwd(), '../../../');
-const envFile = path.join(projectRoot, '.env');
-dotenv.config({ path: envFile });
-dotenv.config({ path: path.join(projectRoot, '.env.local') });
-dotenv.config({ path: path.join(projectRoot, '.env') });
+const VALIDATION_MESSAGE_MAP: Record<string, string> = {
+  'email must be an email': 'Некорректный формат email.',
+  'password must be longer than or equal to 8 characters':
+    'Пароль должен быть не короче 8 символов.',
+  'password must be a string': 'Пароль должен быть строкой.',
+  'email should not be empty': 'Email обязателен.',
+  'password should not be empty': 'Пароль обязателен.',
+};
+
+function toRussianValidationMessage(message: string) {
+  return VALIDATION_MESSAGE_MAP[message] ?? message;
+}
+
+function collectValidationMessages(errors: ValidationError[]): string[] {
+  return errors.flatMap((error) => {
+    const current = Object.values(error.constraints ?? {}).map(toRussianValidationMessage);
+    const nested = error.children?.length ? collectValidationMessages(error.children) : [];
+    return [...current, ...nested];
+  });
+}
 
 async function bootstrap() {
-  const logger = new Logger('Bootstrap');
-
-  // Убеждаемся что DATABASE_URL установлена
-  if (!process.env.DATABASE_URL) {
-    const user = process.env.POSTGRES_USER || 'postgres';
-    const password = process.env.POSTGRES_PASSWORD || 'postgres';
-    const host = process.env.POSTGRES_HOST || 'localhost';
-    const port = process.env.POSTGRES_PORT || '5432';
-    const db = process.env.POSTGRES_DB || 'library';
-    process.env.DATABASE_URL = `postgresql://${user}:${password}@${host}:${port}/${db}`;
-  }
-
-  logger.log('🔧 Initializing NestJS application...');
   const app = await NestFactory.create(AppModule);
+  const env = app.get(EnvironmentVariables);
+  const allowedOrigins = env.CORS_ORIGIN.split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
 
-  const configService = app.get(ConfigService);
-
-  // Глобальная валидация с использованием class-validator
-  app.useGlobalPipes(new ValidationPipe());
-
-  // Включение CORS для фронтенда
   app.enableCors({
-    origin: configService.corsOrigin,
+    origin: allowedOrigins.length > 0 ? allowedOrigins : true,
     credentials: true,
   });
 
-  // Инициализация Swagger
-  const config = new DocumentBuilder()
-    .setTitle('Library API')
-    .setDescription('REST API для управления библиотекой')
-    .setVersion('1.0.0')
-    .addBearerAuth(
-      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
-      'access-token',
-    )
-    .addTag('Auth', 'Аутентификация и авторизация')
-    .build();
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      exceptionFactory: (errors: ValidationError[]) => {
+        const messages = collectValidationMessages(errors);
+        return new BadRequestException(
+          messages.length > 0 ? messages : ['Ошибка валидации входных данных.'],
+        );
+      },
+    }),
+  );
 
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, documentFactory);
-
-  const PORT = configService.port;
-
-  await app.listen(PORT);
-  logger.log(`✓ NestJS API server running on http://localhost:${PORT}`);
-  logger.log(`✓ Swagger UI available at http://localhost:${PORT}/api`);
+  await app.listen(env.PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${env.PORT}`);
+  });
 }
 
-bootstrap().catch((error) => {
-  console.error('✗ Failed to start application:', error);
-  process.exit(1);
-});
+bootstrap();
 

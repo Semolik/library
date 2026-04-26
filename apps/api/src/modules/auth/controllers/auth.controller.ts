@@ -1,77 +1,32 @@
-import { Controller, Post, Body, Get, UseGuards, HttpCode } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiBody,
-  ApiBearerAuth,
-} from '@nestjs/swagger';
-import { AuthService } from '@modules/auth/services/auth.service';
-import { CurrentUser, ApiException } from '@common/decorators';
-import { CreateUserDto, CreateUserDtoSchema, LoginUserDto, LoginUserDtoSchema, UserProfileDto } from '@modules/auth/schemas/user';
-import { RefreshTokenDto, RefreshTokenDtoSchema, TokenResponseDto } from '@modules/auth/schemas/token';
-import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
-import { ZodValidationPipe } from '@common/pipes';
-import { User } from '@prisma/client';
-import { UserAlreadyExistsError, InvalidCredentialsError, InvalidTokenError, UserNotFoundError } from '@common/exceptions';
+import { Controller, Post, Body, Get, UseGuards, UnauthorizedException } from '@nestjs/common';
+import { AuthService } from '../services/auth.service';
+import { UserRegisterDto, UserLoginDto } from '@workspace/shared-types';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { CurrentUser } from '../decorators/current-user.decorator';
+import { JwtPayloadDto } from '@workspace/shared-types';
 
-@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('register')
-  @ApiOperation({ summary: 'Регистрация нового пользователя' })
-  @ApiBody({ type: CreateUserDto })
-  @ApiResponse({
-    status: 201,
-    description: 'Пользователь успешно зарегистрирован',
-    type: TokenResponseDto,
-  })
-  @ApiException(UserAlreadyExistsError)
-  async register(@Body(new ZodValidationPipe(CreateUserDtoSchema)) createUserDto: CreateUserDto) {
-    return this.authService.register(createUserDto);
+  async register(@Body() dto: UserRegisterDto) {
+    return this.authService.register(dto.email, dto.password, dto.firstName, dto.lastName);
   }
 
   @Post('login')
-  @HttpCode(200)
-  @ApiOperation({ summary: 'Вход в систему' })
-  @ApiBody({ type: LoginUserDto })
-  @ApiResponse({
-    status: 200,
-    description: 'Вход выполнен успешно',
-    type: TokenResponseDto,
-  })
-  @ApiException(InvalidCredentialsError)
-  async login(@Body(new ZodValidationPipe(LoginUserDtoSchema)) loginUserDto: LoginUserDto) {
-    return this.authService.login(loginUserDto);
+  async login(@Body() dto: UserLoginDto) {
+    const user = await this.authService.validateUser(dto.email, dto.password);
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+    return this.authService.login(user);
   }
 
-  @Post('refresh')
-  @HttpCode(200)
-  @ApiOperation({ summary: 'Обновление токена доступа' })
-  @ApiBody({ type: RefreshTokenDto })
-  @ApiResponse({
-    status: 200,
-    description: 'Токен успешно обновлён',
-    type: TokenResponseDto,
-  })
-  @ApiException(InvalidTokenError)
-  async refresh(@Body(new ZodValidationPipe(RefreshTokenDtoSchema)) refreshTokenDto: RefreshTokenDto) {
-    return this.authService.refreshToken(refreshTokenDto.refreshToken);
-  }
-
-  @Get('profile')
+  @Get('me')
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth('access-token')
-  @ApiOperation({ summary: 'Получение профиля текущего пользователя' })
-  @ApiResponse({
-    status: 200,
-    description: 'Профиль пользователя',
-    type: UserProfileDto,
-  })
-  @ApiException(UserNotFoundError)
-  async getProfile(@CurrentUser() user: User) {
+  async getCurrentUser(@CurrentUser() user: JwtPayloadDto) {
     return user;
   }
 }
+

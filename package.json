@@ -3,27 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "turbo format",
-    "typecheck": "turbo typecheck",
-    "init:env": "node scripts/init-env.js",
-    "verify:env": "node scripts/verify-env.js",
-    "db:init": "bash scripts/init-db.sh",
-    "db:migrate": "cross-env-shell NODE_ENV=development DATABASE_URL=postgresql://postgres:postgres@localhost:5432/library \"npm --workspace @workspace/api run db:migrate\"",
-    "db:push": "cross-env-shell NODE_ENV=development DATABASE_URL=postgresql://postgres:postgres@localhost:5432/library \"npm --workspace @workspace/api run db:push\"",
-    "db:generate": "cross-env-shell NODE_ENV=development DATABASE_URL=postgresql://postgres:postgres@localhost:5432/library \"npm --workspace @workspace/api run db:generate\"",
-    "db:seed": "cross-env-shell NODE_ENV=development DATABASE_URL=postgresql://postgres:postgres@localhost:5432/library \"npm --workspace @workspace/api run db:seed\"",
-    "db:reset": "cross-env-shell NODE_ENV=development DATABASE_URL=postgresql://postgres:postgres@localhost:5432/library \"npm --workspace @workspace/api run db:reset\"",
-    "api:dev": "npm --workspace @workspace/api run dev",
-    "web:dev": "cd apps/web && npm run dev",
-    "docker:db": "docker-compose -f deployment/docker-compose.local.yaml up postgres",
-    "docker:db:down": "docker-compose -f deployment/docker-compose.local.yaml down postgres",
-    "docker:all": "docker-compose -f deployment/docker-compose.local.full.yaml up",
-    "docker:all:down": "docker-compose -f deployment/docker-compose.local.full.yaml down"
+    "build": "turbo build --filter=!@workspace/shared-types",
+    "dev": "npm run shared-types:dev & turbo dev --filter=!@workspace/shared-types",
+    "db:seed": "turbo db:seed --filter=!@workspace/shared-types",
+    "lint": "turbo lint --filter=!@workspace/shared-types",
+    "format": "turbo format --filter=!@workspace/shared-types",
+    "typecheck": "turbo typecheck --filter=!@workspace/shared-types",
+    "shared-types:dev": "npm --workspace @workspace/shared-types run watch",
+    "shared-types:build": "npm --workspace @workspace/shared-types run compile"
   },
-  "packageManager": "npm@11.4.2",
   "devDependencies": {
     "@workspace/eslint-config": "*",
     "@workspace/typescript-config": "*",
@@ -32,6 +20,7 @@
     "turbo": "^2.8.17",
     "typescript": "5.9.3"
   },
+  "packageManager": "npm@10.8.2",
   "engines": {
     "node": ">=20"
   },
