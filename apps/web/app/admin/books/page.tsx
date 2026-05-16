@@ -1,174 +1,202 @@
 "use client"
 
-import { useState } from "react"
+import * as React from "react"
 import { toast } from "sonner"
-import { libraryClient, type LibraryBook } from "@/client/library-client"
+import {
+  libraryClient,
+  type LibraryAuthor,
+  type LibraryBook,
+  type LibraryCategory,
+  type LibraryCity,
+  type LibraryPublishingHouse,
+} from "@/client/library-client"
+import { AdminBookEditorForm } from "@/components/admin-book-editor-form"
+import { AdminBooksExplorer } from "@/components/admin-books-explorer"
 import { AdminSectionGuard } from "@/components/admin-section-guard"
+import { useAuth } from "@/components/auth-provider"
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@workspace/ui/components/alert-dialog"
 import { Button } from "@workspace/ui/components/button"
-import { Input } from "@workspace/ui/components/input"
-
-type CreateBookForm = {
-  categoryId: string
-  publishingHouseId: string
-  cityId: string
-  title: string
-  publicationYear: string
-  pages: string
-  isbn: string
-  authorIds: string
-}
-
-const initialForm: CreateBookForm = {
-  categoryId: "",
-  publishingHouseId: "",
-  cityId: "",
-  title: "",
-  publicationYear: "",
-  pages: "",
-  isbn: "",
-  authorIds: "",
-}
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@workspace/ui/components/dialog"
+import { Plus } from "lucide-react"
 
 export default function AdminBooksPage() {
-  const [form, setForm] = useState<CreateBookForm>(initialForm)
-  const [createdBook, setCreatedBook] = useState<LibraryBook | null>(null)
-  const [coverFile, setCoverFile] = useState<File | null>(null)
-  const [coverUrl, setCoverUrl] = useState<string | null>(null)
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { token } = useAuth()
+  const [categories, setCategories] = React.useState<LibraryCategory[]>([])
+  const [publishingHouses, setPublishingHouses] = React.useState<LibraryPublishingHouse[]>([])
+  const [cities, setCities] = React.useState<LibraryCity[]>([])
+  const [authors, setAuthors] = React.useState<LibraryAuthor[]>([])
+  const [loadingRefs, setLoadingRefs] = React.useState(true)
+  const [dialogOpen, setDialogOpen] = React.useState(false)
+  const [createFormKey, setCreateFormKey] = React.useState(0)
+  const [submitting, setSubmitting] = React.useState(false)
+  const [deleteTarget, setDeleteTarget] = React.useState<LibraryBook | null>(null)
+  const [listRevision, setListRevision] = React.useState(0)
 
-  async function handleCreate(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setIsSubmitting(true)
-    try {
-      const book = await libraryClient.createBook({
-        categoryId: form.categoryId.trim(),
-        publishingHouseId: form.publishingHouseId.trim(),
-        cityId: form.cityId.trim(),
-        title: form.title.trim(),
-        publicationYear: Number(form.publicationYear),
-        pages: Number(form.pages),
-        isbn: form.isbn.trim(),
-        authorIds: form.authorIds
-          .split(",")
-          .map((id) => id.trim())
-          .filter(Boolean),
-      })
-      setCreatedBook(book)
-      setCoverUrl(null)
-      toast.success("Книга создана")
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Не удалось создать книгу.")
-    } finally {
-      setIsSubmitting(false)
+  const loadRefs = React.useCallback(async () => {
+    if (!token?.trim()) {
+      return
     }
+    try {
+      const [cat, pub, cit, auth] = await Promise.all([
+        libraryClient.listCategories(token),
+        libraryClient.listPublishingHouses(token),
+        libraryClient.listCities(token),
+        libraryClient.listAuthors(token),
+      ])
+      setCategories(cat)
+      setPublishingHouses(pub)
+      setCities(cit)
+      setAuthors(auth)
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Не удалось загрузить справочники.")
+    }
+  }, [token])
+
+  React.useEffect(() => {
+    let cancelled = false
+    if (!token?.trim()) {
+      setLoadingRefs(false)
+      return
+    }
+    ;(async () => {
+      setLoadingRefs(true)
+      try {
+        await loadRefs()
+      } finally {
+        if (!cancelled) setLoadingRefs(false)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [loadRefs, token])
+
+  const refsReady =
+    !loadingRefs &&
+    categories.length > 0 &&
+    publishingHouses.length > 0 &&
+    cities.length > 0 &&
+    authors.length > 0
+
+  const sharedRefs = React.useMemo(
+    () => ({
+      categories,
+      publishingHouses,
+      cities,
+      authors,
+    }),
+    [categories, publishingHouses, cities, authors],
+  )
+
+  function openCreate() {
+    setCreateFormKey((n) => n + 1)
+    setDialogOpen(true)
   }
 
-  async function handleUploadCover() {
-    if (!createdBook || !coverFile) return
-    setIsSubmitting(true)
+  async function confirmDelete() {
+    if (!deleteTarget) return
+    setSubmitting(true)
     try {
-      const uploaded = await libraryClient.uploadCover(createdBook.id, coverFile)
-      setCoverUrl(uploaded.url)
-      toast.success("Обложка загружена")
+      await libraryClient.deleteBook(deleteTarget.id, token)
+      toast.success("Книга удалена")
+      setDeleteTarget(null)
+      setListRevision((r) => r + 1)
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Не удалось загрузить обложку.")
+      toast.error(error instanceof Error ? error.message : "Не удалось удалить книгу.")
     } finally {
-      setIsSubmitting(false)
+      setSubmitting(false)
     }
   }
 
   return (
-    <AdminSectionGuard
-      title="Книги"
-      description="Создание книги и загрузка обложки в MinIO (authorIds через запятую)"
-    >
-      <form onSubmit={handleCreate} className="grid gap-2 sm:grid-cols-2">
-        <Input
-          placeholder="UUID категории"
-          value={form.categoryId}
-          onChange={(event) => setForm((prev) => ({ ...prev, categoryId: event.target.value }))}
-          required
-        />
-        <Input
-          placeholder="UUID издательства"
-          value={form.publishingHouseId}
-          onChange={(event) =>
-            setForm((prev) => ({ ...prev, publishingHouseId: event.target.value }))
-          }
-          required
-        />
-        <Input
-          placeholder="UUID города"
-          value={form.cityId}
-          onChange={(event) => setForm((prev) => ({ ...prev, cityId: event.target.value }))}
-          required
-        />
-        <Input
-          placeholder="Название книги"
-          value={form.title}
-          onChange={(event) => setForm((prev) => ({ ...prev, title: event.target.value }))}
-          required
-        />
-        <Input
-          type="number"
-          placeholder="Год публикации"
-          value={form.publicationYear}
-          onChange={(event) =>
-            setForm((prev) => ({ ...prev, publicationYear: event.target.value }))
-          }
-          required
-        />
-        <Input
-          type="number"
-          placeholder="Страниц"
-          value={form.pages}
-          onChange={(event) => setForm((prev) => ({ ...prev, pages: event.target.value }))}
-          required
-        />
-        <Input
-          placeholder="ISBN"
-          value={form.isbn}
-          onChange={(event) => setForm((prev) => ({ ...prev, isbn: event.target.value }))}
-          required
-        />
-        <Input
-          placeholder="UUID авторов через запятую"
-          value={form.authorIds}
-          onChange={(event) => setForm((prev) => ({ ...prev, authorIds: event.target.value }))}
-        />
-        <div className="sm:col-span-2">
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Сохраняем..." : "Создать книгу"}
-          </Button>
-        </div>
-      </form>
-
-      {createdBook ? (
-        <div className="space-y-3 rounded-lg border bg-card p-4 text-sm">
-          <p>
-            Создана книга: <span className="font-medium">{createdBook.title}</span>
-          </p>
-          <p className="text-muted-foreground">ID: {createdBook.id}</p>
-
-          <div className="flex flex-wrap items-center gap-2">
-            <Input
-              type="file"
-              accept="image/*"
-              onChange={(event) => setCoverFile(event.target.files?.[0] ?? null)}
-              className="max-w-sm"
-            />
-            <Button type="button" variant="outline" disabled={!coverFile || isSubmitting} onClick={handleUploadCover}>
-              Загрузить обложку
+    <AdminSectionGuard title="Книги" requireCatalogAdmin>
+      <div className="flex min-h-0 flex-1 flex-col gap-4">
+        <AdminBooksExplorer
+          token={token}
+          purpose="manage"
+          sharedRefs={sharedRefs}
+          listRevision={listRevision}
+          onRequestDelete={(book) => setDeleteTarget(book)}
+          toolbarEnd={
+            <Button type="button" onClick={openCreate} disabled={!refsReady}>
+              <Plus className="size-4" />
+              Добавить книгу
             </Button>
-          </div>
+          }
+          className="flex min-h-0 min-w-0 flex-1 flex-col gap-4"
+        />
+      </div>
 
-          {coverUrl ? (
-            <a className="text-primary underline" href={coverUrl} target="_blank" rel="noreferrer">
-              Открыть обложку
-            </a>
-          ) : null}
-        </div>
-      ) : null}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Новая книга</DialogTitle>
+          </DialogHeader>
+          <AdminBookEditorForm
+            key={createFormKey}
+            token={token}
+            book={null}
+            categories={categories}
+            publishingHouses={publishingHouses}
+            cities={cities}
+            authors={authors}
+            refsReady={refsReady}
+            onCancel={() => setDialogOpen(false)}
+            onSaved={async () => {
+              setDialogOpen(false)
+              setListRevision((r) => r + 1)
+            }}
+          />
+        </DialogContent>
+      </Dialog>
+
+      <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(open) => !open && setDeleteTarget(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Удалить книгу?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {deleteTarget ? (
+                <>
+                  Запись «{deleteTarget.title}» будет удалена безвозвратно.
+                  {(deleteTarget.copyCount ?? 0) > 0 ? (
+                    <span className="mt-2 block font-medium text-destructive">
+                      У книги есть экземпляры ({deleteTarget.copyCount}). Удалите их перед удалением
+                      книги.
+                    </span>
+                  ) : null}
+                </>
+              ) : null}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel asChild>
+              <Button variant="outline" disabled={submitting}>
+                Отмена
+              </Button>
+            </AlertDialogCancel>
+            <Button
+              variant="destructive"
+              disabled={submitting || (deleteTarget?.copyCount ?? 0) > 0}
+              onClick={() => void confirmDelete()}
+            >
+              Удалить
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </AdminSectionGuard>
   )
 }

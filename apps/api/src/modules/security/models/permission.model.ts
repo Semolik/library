@@ -4,12 +4,10 @@ import {
   Entity,
   Index,
   ManyToMany,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { RoleModel } from './role.model';
-import { PermissionRoleModel } from './permission-role.model';
 
 @Entity({ name: 'permissions', schema: 'security' })
 export class PermissionModel {
@@ -33,8 +31,5 @@ export class PermissionModel {
     onDelete: 'CASCADE',
   })
   roles: RoleModel[];
-
-  @OneToMany(() => PermissionRoleModel, (permissionRole) => permissionRole.permission)
-  permissionRoles: PermissionRoleModel[];
 }
 

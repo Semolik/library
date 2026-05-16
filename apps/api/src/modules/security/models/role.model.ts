@@ -5,14 +5,11 @@ import {
   Index,
   JoinTable,
   ManyToMany,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { UserModel } from '../../user/models/user.model';
 import { PermissionModel } from './permission.model';
-import { UserRoleModel } from './user-role.model';
-import { PermissionRoleModel } from './permission-role.model';
 
 @Entity({ name: 'roles', schema: 'security' })
 export class RoleModel {
@@ -43,9 +40,6 @@ export class RoleModel {
   })
   users: UserModel[];
 
-  @OneToMany(() => UserRoleModel, (userRole) => userRole.role)
-  userRoles: UserRoleModel[];
-
   @ManyToMany(() => PermissionModel, (permission) => permission.roles, {
     onDelete: 'CASCADE',
   })
@@ -56,8 +50,5 @@ export class RoleModel {
     inverseJoinColumn: { name: 'permission_id', referencedColumnName: 'id' },
   })
   permissions: PermissionModel[];
-
-  @OneToMany(() => PermissionRoleModel, (permissionRole) => permissionRole.role)
-  permissionRoles: PermissionRoleModel[];
 }
 

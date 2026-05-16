@@ -1,7 +1,7 @@
 import { ApiClient } from "@/client/api-client"
 import type { UserDto, UserUpdateDto } from "@workspace/shared-types"
 
-export type UserProfile = Pick<UserDto, "id" | "email" | "firstName" | "lastName">
+export type UserProfile = Pick<UserDto, "id" | "email" | "firstName" | "lastName" | "roles">
 export type UpdateProfileInput = Pick<UserUpdateDto, "email" | "firstName" | "lastName">
 
 class UserClient extends ApiClient {

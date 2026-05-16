@@ -1,9 +1,8 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { UserModel } from '../models/user.model';
 import { RoleService } from '../../security/services/role.service';
+import { UserModel } from '../models/user.model';
+import { UserRepository } from '../repositories/user.repository';
 
 export type AdminUserUpdateInput = {
   email?: string;
@@ -25,30 +24,26 @@ export type AdminUserCreateInput = {
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserModel)
-    private userRepository: Repository<UserModel>,
+    private readonly userRepository: UserRepository,
     private roleService: RoleService,
   ) {}
 
   async findById(id: string): Promise<UserModel | null> {
-    return this.userRepository.findOne({
-      where: { id },
-      relations: ['roles', 'roles.permissions'],
-    });
+    return this.userRepository.findByIdWithRolesAndPermissions(id);
   }
 
   async findByEmail(email: string): Promise<UserModel | null> {
-    return this.userRepository.findOne({
-      where: { email },
-      relations: ['roles', 'roles.permissions'],
-    });
+    return this.userRepository.findByEmailWithRolesAndPermissions(email);
+  }
+
+  /** True, если хотя бы у одного пользователя есть роль с данным именем. */
+  async hasAnyUserWithRole(roleName: string): Promise<boolean> {
+    const count = await this.userRepository.countUsersHavingRoleName(roleName);
+    return count > 0;
   }
 
   async findAllUsers(): Promise<UserModel[]> {
-    return this.userRepository.find({
-      relations: ['roles'],
-      order: { createdAt: 'ASC' },
-    });
+    return this.userRepository.findAllWithRolesOrderedByCreatedAt();
   }
 
   async create(
@@ -66,11 +61,8 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
-  async update(
-    id: string,
-    data: Partial<UserModel>,
-  ): Promise<UserModel> {
-    await this.userRepository.update(id, data);
+  async update(id: string, data: Partial<UserModel>): Promise<UserModel> {
+    await this.userRepository.updateById(id, data);
     const user = await this.findById(id);
     if (!user) {
       throw new Error(`User with id ${id} not found after update`);
@@ -127,11 +119,7 @@ export class UserService {
       return;
     }
 
-    await this.userRepository
-      .createQueryBuilder()
-      .relation(UserModel, 'roles')
-      .of(id)
-      .addAndRemove(toAdd, toRemove);
+    await this.userRepository.replaceRoles(id, toAdd, toRemove);
   }
 
   async adminUpdate(id: string, data: AdminUserUpdateInput): Promise<UserModel> {
@@ -154,7 +142,7 @@ export class UserService {
     if (data.isActive !== undefined) update.isActive = data.isActive;
 
     if (Object.keys(update).length > 0) {
-      await this.userRepository.update(id, update);
+      await this.userRepository.updateById(id, update);
     }
 
     if (data.roles) {
@@ -200,14 +188,10 @@ export class UserService {
     if (!user) {
       throw new NotFoundException('Пользователь не найден.');
     }
-    await this.userRepository.delete(id);
+    await this.userRepository.deleteById(id);
   }
 
   async addRole(userId: string, roleId: string): Promise<void> {
-    await this.userRepository
-      .createQueryBuilder()
-      .relation(UserModel, 'roles')
-      .of(userId)
-      .add(roleId);
+    await this.userRepository.addRole(userId, roleId);
   }
 }

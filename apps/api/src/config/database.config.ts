@@ -3,12 +3,11 @@ import { EnvironmentVariables } from './env.validation';
 import { UserModel } from '../modules/user/models/user.model';
 import { RoleModel } from '../modules/security/models/role.model';
 import { PermissionModel } from '../modules/security/models/permission.model';
-import { UserRoleModel } from '../modules/security/models/user-role.model';
-import { PermissionRoleModel } from '../modules/security/models/permission-role.model';
 import {
   AuthorModel,
   BookAuthorModel,
   BookCopyModel,
+  BookFavoriteModel,
   BookModel,
   CategoryModel,
   CityModel,
@@ -17,7 +16,8 @@ import {
   RentedBookModel,
   ReturnBookModel,
   StorageModel,
-} from '../modules/library/models';
+  LibraryAppSettingsModel,
+} from '../modules/library-data/models';
 
 export function getDatabaseConfig(env: EnvironmentVariables): TypeOrmModuleOptions {
   return {
@@ -31,8 +31,6 @@ export function getDatabaseConfig(env: EnvironmentVariables): TypeOrmModuleOptio
       UserModel,
       RoleModel,
       PermissionModel,
-      UserRoleModel,
-      PermissionRoleModel,
       CategoryModel,
       PublishingHouseModel,
       CityModel,
@@ -40,10 +38,12 @@ export function getDatabaseConfig(env: EnvironmentVariables): TypeOrmModuleOptio
       BookAuthorModel,
       AuthorModel,
       BookCopyModel,
+      BookFavoriteModel,
       StorageModel,
       RentedBookModel,
       ReturnBookModel,
       PaidRentFineModel,
+      LibraryAppSettingsModel,
     ],
     // Do not mutate schema on app startup; use explicit migration scripts.
     synchronize: false,

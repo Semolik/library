@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { SecurityModule } from './modules/security/security.module';
-import { LibraryModule } from './modules/library/library.module';
+import { LibraryCatalogModule } from './modules/library-catalog/library-catalog.module';
+import { LibraryCirculationModule } from './modules/library-circulation/library-circulation.module';
 import { EnvironmentVariables, validate } from './config/env.validation';
 import { getDatabaseConfig } from './config/database.config';
 import * as dotenv from 'dotenv';
@@ -21,11 +23,13 @@ const env = new EnvironmentVariables();
       isGlobal: true,
       validate: () => env,
     }),
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRoot(getDatabaseConfig(env)),
     UserModule,
     AuthModule,
     SecurityModule,
-    LibraryModule,
+    LibraryCatalogModule,
+    LibraryCirculationModule,
   ],
   controllers: [],
   providers: [

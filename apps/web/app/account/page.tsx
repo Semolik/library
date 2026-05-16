@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { AppShell } from "@/components/app-shell"
+import { CenteredFormShell } from "@/components/centered-form-shell"
 import { LoginForm } from "@/components/login-form"
 import { useAuth } from "@/components/auth-provider"
 import { userClient } from "@/client/user-client"
@@ -38,6 +39,7 @@ export default function AccountPage() {
           email: profile.email,
           firstName: profile.firstName ?? undefined,
           lastName: profile.lastName ?? undefined,
+          roles: profile.roles?.map((r) => r.name),
         })
       })
       .catch((error) => {
@@ -54,9 +56,11 @@ export default function AccountPage() {
   if (!isHydrated) {
     return (
       <AppShell>
-        <div className="w-full max-w-xl rounded-lg border bg-card p-6 text-sm text-muted-foreground">
-          Загрузка профиля...
-        </div>
+        <CenteredFormShell>
+          <div className="w-full max-w-md rounded-lg border bg-card p-6 text-sm text-muted-foreground">
+            Загрузка профиля...
+          </div>
+        </CenteredFormShell>
       </AppShell>
     )
   }
@@ -64,13 +68,13 @@ export default function AccountPage() {
   if (!isAuthenticated || !token) {
     return (
       <AppShell>
-        <div className="w-full max-w-sm">
+        <CenteredFormShell>
           <LoginForm
             onSuccess={(payload) => {
               login(payload.accessToken, payload.user)
             }}
           />
-        </div>
+        </CenteredFormShell>
       </AppShell>
     )
   }
@@ -100,6 +104,7 @@ export default function AccountPage() {
         email: freshProfile.email,
         firstName: freshProfile.firstName ?? undefined,
         lastName: freshProfile.lastName ?? undefined,
+        roles: freshProfile.roles?.map((r) => r.name),
       })
       toast.success("Профиль обновлён")
     } catch (error) {
@@ -117,53 +122,55 @@ export default function AccountPage() {
 
   return (
     <AppShell>
-      <div className="w-full max-w-xl">
-        <Card>
-          <CardHeader>
-            <CardTitle>Аккаунт</CardTitle>
-            <CardDescription>Редактирование профиля пользователя</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit}>
-              <FieldGroup>
-                <Field>
-                  <FieldLabel htmlFor="firstName">Имя</FieldLabel>
-                  <Input
-                    id="firstName"
-                    name="firstName"
-                    value={firstName}
-                    onChange={(event) => setFirstName(event.target.value)}
-                  />
-                </Field>
-                <Field>
-                  <FieldLabel htmlFor="lastName">Фамилия</FieldLabel>
-                  <Input
-                    id="lastName"
-                    name="lastName"
-                    value={lastName}
-                    onChange={(event) => setLastName(event.target.value)}
-                  />
-                </Field>
-                <Field>
-                  <FieldLabel htmlFor="email">Электронная почта</FieldLabel>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                  />
-                </Field>
-                <Field>
-                  <Button type="submit" disabled={isSaving}>
-                    {isSaving ? "Сохраняем..." : "Сохранить изменения"}
-                  </Button>
-                </Field>
-              </FieldGroup>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
+      <CenteredFormShell>
+        <div className="w-full max-w-md">
+          <Card>
+            <CardHeader>
+              <CardTitle>Аккаунт</CardTitle>
+              <CardDescription>Редактирование профиля пользователя</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit}>
+                <FieldGroup>
+                  <Field>
+                    <FieldLabel htmlFor="firstName">Имя</FieldLabel>
+                    <Input
+                      id="firstName"
+                      name="firstName"
+                      value={firstName}
+                      onChange={(event) => setFirstName(event.target.value)}
+                    />
+                  </Field>
+                  <Field>
+                    <FieldLabel htmlFor="lastName">Фамилия</FieldLabel>
+                    <Input
+                      id="lastName"
+                      name="lastName"
+                      value={lastName}
+                      onChange={(event) => setLastName(event.target.value)}
+                    />
+                  </Field>
+                  <Field>
+                    <FieldLabel htmlFor="email">Электронная почта</FieldLabel>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                    />
+                  </Field>
+                  <Field>
+                    <Button type="submit" disabled={isSaving}>
+                      {isSaving ? "Сохраняем..." : "Сохранить изменения"}
+                    </Button>
+                  </Field>
+                </FieldGroup>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      </CenteredFormShell>
     </AppShell>
   )
 }

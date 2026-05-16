@@ -126,4 +126,14 @@
   body {
     @apply bg-background text-foreground;
     }
+
+  /** Явный указатель для нативных кнопок (preflight может оставить default). */
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+
+  /* Radix и др.: фокусируемые «кнопки», не всегда с тегом button */
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
 }

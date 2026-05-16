@@ -1,18 +1,23 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useState } from "react"
+import Link from "next/link"
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react"
 import { toast } from "sonner"
 import { Pencil, Plus, Trash2 } from "lucide-react"
+import { AdminFormSelect } from "@/components/admin-form-select"
+import { AdminMultiSelect } from "@/components/admin-multi-select"
 import { AppShell } from "@/components/app-shell"
+import { CenteredFormShell } from "@/components/centered-form-shell"
 import { LoginForm } from "@/components/login-form"
 import { useAuth } from "@/components/auth-provider"
+import { usePageHeaderOptional } from "@/components/page-header-context"
 import { adminUsersClient, type AdminRole, type AdminUserListItem } from "@/client/admin-users-client"
 import { ApiError } from "@/client/api-client"
+import { libraryClient, type LibraryBorrowedBookRow } from "@/client/library-client"
+import { isLibraryStaffRole } from "@/lib/library-staff"
 import { Button } from "@workspace/ui/components/button"
-import { Checkbox } from "@workspace/ui/components/checkbox"
 import { Field, FieldGroup, FieldLabel } from "@workspace/ui/components/field"
 import { Input } from "@workspace/ui/components/input"
-import { Label } from "@workspace/ui/components/label"
 import {
   Dialog,
   DialogContent,
@@ -22,18 +27,18 @@ import {
   DialogTitle,
 } from "@workspace/ui/components/dialog"
 
-const ADMIN_ROLES = ["SUPERUSER", "ADMIN"]
-
 const ROLE_LABELS: Record<string, string> = {
   SUPERUSER: "Суперпользователь",
-  ADMIN: "Администратор",
-  USER: "Пользователь",
+  ADMIN: "Администратор библиотеки",
+  LIBRARIAN: "Библиотекарь",
+  USER: "Читатель",
 }
 
 const ROLE_DESCRIPTIONS: Record<string, string> = {
-  SUPERUSER: "Полный доступ ко всем разделам и операциям.",
-  ADMIN: "Доступ к админке и управлению пользователями.",
-  USER: "Базовый доступ к пользовательским разделам.",
+  SUPERUSER: "Технический полный доступ ко всем операциям.",
+  ADMIN: "Управление персоналом, ролями библиотекаря и администратора, данными системы.",
+  LIBRARIAN: "Экземпляры и обращение книг, читатели; без ведения справочников и карточек.",
+  USER: "Каталог, личный кабинет, история выдач.",
 }
 
 type EditMode = { mode: "create" } | { mode: "edit"; user: AdminUserListItem } | null
@@ -56,6 +61,10 @@ const initialForm: FormState = {
   roles: [],
 }
 
+const FILTER_ALL = "__all__"
+
+const USER_FILTER_DEBOUNCE_MS = 350
+
 export default function UsersPage() {
   const { isHydrated, isAuthenticated, token, user, login, logout } = useAuth()
 
@@ -65,15 +74,25 @@ export default function UsersPage() {
   const [editMode, setEditMode] = useState<EditMode>(null)
   const [formState, setFormState] = useState<FormState>(initialForm)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [fioInput, setFioInput] = useState("")
+  const [debouncedFio, setDebouncedFio] = useState("")
+  const [emailInput, setEmailInput] = useState("")
+  const [debouncedEmail, setDebouncedEmail] = useState("")
+  const [roleFilter, setRoleFilter] = useState<string>(FILTER_ALL)
+  const [statusFilter, setStatusFilter] = useState<"all" | "active" | "inactive">("all")
+  const filterDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const fioFilterFieldId = useId()
+  const emailFilterFieldId = useId()
+  const statusFilterFieldId = useId()
+  const roleFilterFieldId = useId()
+
+  const [borrowedSnapshot, setBorrowedSnapshot] = useState<LibraryBorrowedBookRow[]>([])
 
   const getRoleLabel = (name: string) => ROLE_LABELS[name] ?? name
   const getRoleDescription = (name: string, fallback?: string | null) =>
     ROLE_DESCRIPTIONS[name] ?? fallback ?? ""
 
-  const isAdmin = useMemo(
-    () => Boolean(user?.roles?.some((role) => ADMIN_ROLES.includes(role))),
-    [user?.roles],
-  )
+  const isStaff = useMemo(() => isLibraryStaffRole(user?.roles), [user?.roles])
 
   const handleAuthError = useCallback(
     (error: unknown, fallback: string) => {
@@ -105,10 +124,116 @@ export default function UsersPage() {
     }
   }, [token, handleAuthError])
 
+  const fetchBorrowedSnapshot = useCallback(async () => {
+    if (!token) return
+    try {
+      const res = await libraryClient.listBorrowedBooks(token, { soonDays: 7 })
+      setBorrowedSnapshot(res.items)
+    } catch {
+      /* список «на руках» необязателен для таблицы пользователей */
+    }
+  }, [token])
+
   useEffect(() => {
-    if (!isHydrated || !isAuthenticated || !isAdmin) return
+    if (!isHydrated || !isAuthenticated || !isStaff) return
     void fetchData()
-  }, [isHydrated, isAuthenticated, isAdmin, fetchData])
+  }, [isHydrated, isAuthenticated, isStaff, fetchData])
+
+  useEffect(() => {
+    if (!isHydrated || !isAuthenticated || !isStaff) return
+    void fetchBorrowedSnapshot()
+  }, [isHydrated, isAuthenticated, isStaff, fetchBorrowedSnapshot])
+
+  useEffect(() => {
+    if (filterDebounceRef.current) clearTimeout(filterDebounceRef.current)
+    filterDebounceRef.current = setTimeout(() => {
+      filterDebounceRef.current = null
+      setDebouncedFio(fioInput.trim())
+      setDebouncedEmail(emailInput.trim())
+    }, USER_FILTER_DEBOUNCE_MS)
+    return () => {
+      if (filterDebounceRef.current) clearTimeout(filterDebounceRef.current)
+    }
+  }, [fioInput, emailInput])
+
+  const filteredUsers = useMemo(() => {
+    const fio = debouncedFio.trim().toLowerCase()
+    const emailQ = debouncedEmail.trim().toLowerCase()
+
+    return users.filter((row) => {
+      if (fio) {
+        const ln = (row.lastName ?? "").trim().toLowerCase()
+        const fn = (row.firstName ?? "").trim().toLowerCase()
+        const joinedFnLn = `${fn} ${ln}`.trim()
+        const joinedLnFn = `${ln} ${fn}`.trim()
+        const matchesFio =
+          fn.includes(fio) ||
+          ln.includes(fio) ||
+          joinedFnLn.includes(fio) ||
+          joinedLnFn.includes(fio)
+        if (!matchesFio) return false
+      }
+
+      if (emailQ && !row.email.toLowerCase().includes(emailQ)) return false
+
+      if (roleFilter !== FILTER_ALL && !row.roles.some((r) => r.name === roleFilter)) return false
+
+      if (statusFilter === "active" && !row.isActive) return false
+      if (statusFilter === "inactive" && row.isActive) return false
+
+      return true
+    })
+  }, [users, debouncedFio, debouncedEmail, roleFilter, statusFilter])
+
+  const borrowedStatsByUserId = useMemo(() => {
+    const m = new Map<string, { total: number; overdue: number; dueSoon: number }>()
+    for (const row of borrowedSnapshot) {
+      const cur = m.get(row.userId) ?? { total: 0, overdue: 0, dueSoon: 0 }
+      cur.total++
+      if (row.urgency === "overdue") cur.overdue++
+      if (row.urgency === "due_soon") cur.dueSoon++
+      m.set(row.userId, cur)
+    }
+    return m
+  }, [borrowedSnapshot])
+
+  const statusFilterSelectValue = statusFilter === "all" ? FILTER_ALL : statusFilter
+
+  const roleFilterOptions = useMemo(
+    () => [
+      { value: FILTER_ALL, label: "Все роли" },
+      ...roles.map((role) => ({
+        value: role.name,
+        label: ROLE_LABELS[role.name] ?? role.name,
+      })),
+    ],
+    [roles],
+  )
+
+  const statusFilterOptions = useMemo(
+    () => [
+      { value: FILTER_ALL, label: "Все статусы" },
+      { value: "active", label: "Только активные" },
+      { value: "inactive", label: "Только заблокированные" },
+    ],
+    [],
+  )
+
+  const pageHeader = usePageHeaderOptional()
+  const usersBreadcrumbs = useMemo(
+    () => [{ label: "Главная", href: "/" }, { label: "Пользователи" }],
+    [],
+  )
+
+  useEffect(() => {
+    if (!pageHeader) return
+    if (!isHydrated || !isAuthenticated || !isStaff) {
+      pageHeader.setBreadcrumbs(null)
+      return
+    }
+    pageHeader.setBreadcrumbs(usersBreadcrumbs)
+    return () => pageHeader.setBreadcrumbs(null)
+  }, [pageHeader, isHydrated, isAuthenticated, isStaff, usersBreadcrumbs])
 
   const openCreate = () => {
     setFormState(initialForm)
@@ -128,15 +253,6 @@ export default function UsersPage() {
   }
 
   const closeDialog = () => setEditMode(null)
-
-  const toggleRole = (name: string) => {
-    setFormState((prev) => ({
-      ...prev,
-      roles: prev.roles.includes(name)
-        ? prev.roles.filter((role) => role !== name)
-        : [...prev.roles, name],
-    }))
-  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -201,12 +317,23 @@ export default function UsersPage() {
     }
   }
 
+  function commitUsersFiltersImmediate() {
+    if (filterDebounceRef.current) {
+      clearTimeout(filterDebounceRef.current)
+      filterDebounceRef.current = null
+    }
+    setDebouncedFio(fioInput.trim())
+    setDebouncedEmail(emailInput.trim())
+  }
+
   if (!isHydrated) {
     return (
       <AppShell>
-        <div className="w-full max-w-3xl rounded-lg border bg-card p-6 text-sm text-muted-foreground">
-          Загрузка...
-        </div>
+        <CenteredFormShell>
+          <div className="w-full max-w-md rounded-lg border bg-card p-6 text-center text-sm text-muted-foreground">
+            Загрузка...
+          </div>
+        </CenteredFormShell>
       </AppShell>
     )
   }
@@ -214,26 +341,28 @@ export default function UsersPage() {
   if (!isAuthenticated || !token) {
     return (
       <AppShell>
-        <div className="w-full max-w-sm">
+        <CenteredFormShell>
           <LoginForm
             onSuccess={(payload) => {
               login(payload.accessToken, payload.user)
             }}
           />
-        </div>
+        </CenteredFormShell>
       </AppShell>
     )
   }
 
-  if (!isAdmin) {
+  if (!isStaff) {
     return (
       <AppShell>
-        <div className="w-full max-w-3xl rounded-lg border bg-card p-6">
-          <h1 className="text-xl font-semibold">Пользователи</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Этот раздел доступен только администраторам.
-          </p>
-        </div>
+        <CenteredFormShell>
+          <div className="w-full max-w-lg rounded-lg border bg-card p-6">
+            <h1 className="text-xl font-semibold">Пользователи</h1>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Этот раздел доступен только администратору библиотеки или библиотекарю.
+            </p>
+          </div>
+        </CenteredFormShell>
       </AppShell>
     )
   }
@@ -244,9 +373,66 @@ export default function UsersPage() {
   return (
     <AppShell>
       <div className="w-full space-y-6">
-        <div className="flex items-center justify-between">
-          <p className="text-sm text-muted-foreground">Управление учётными записями и ролями</p>
-          <Button type="button" onClick={openCreate}>
+        <div className="flex flex-wrap items-end gap-3">
+          <Field className="min-w-[180px] flex-1 sm:max-w-xs">
+            <FieldLabel htmlFor={fioFilterFieldId}>Поиск по ФИО</FieldLabel>
+            <Input
+              id={fioFilterFieldId}
+              value={fioInput}
+              onChange={(event) => setFioInput(event.target.value)}
+              placeholder="Имя или фамилия…"
+              aria-busy={isLoading}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault()
+                  commitUsersFiltersImmediate()
+                }
+              }}
+            />
+          </Field>
+          <Field className="min-w-[180px] flex-1 sm:max-w-xs">
+            <FieldLabel htmlFor={emailFilterFieldId}>Фильтр по email</FieldLabel>
+            <Input
+              id={emailFilterFieldId}
+              type="search"
+              autoComplete="off"
+              value={emailInput}
+              onChange={(event) => setEmailInput(event.target.value)}
+              placeholder="Фрагмент адреса…"
+              aria-busy={isLoading}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault()
+                  commitUsersFiltersImmediate()
+                }
+              }}
+            />
+          </Field>
+          <div className="min-w-[180px] flex-1 sm:max-w-[220px]">
+            <AdminFormSelect
+              id={statusFilterFieldId}
+              label="Статус"
+              value={statusFilterSelectValue}
+              onValueChange={(v) => {
+                if (v === FILTER_ALL) setStatusFilter("all")
+                else if (v === "active") setStatusFilter("active")
+                else setStatusFilter("inactive")
+              }}
+              placeholder="Все статусы"
+              options={statusFilterOptions}
+            />
+          </div>
+          <div className="min-w-[200px] flex-1 sm:max-w-[260px]">
+            <AdminFormSelect
+              id={roleFilterFieldId}
+              label="Роль"
+              value={roleFilter}
+              onValueChange={setRoleFilter}
+              placeholder="Все роли"
+              options={roleFilterOptions}
+            />
+          </div>
+          <Button type="button" className="shrink-0" onClick={openCreate}>
             <Plus className="mr-2 size-4" />
             Создать
           </Button>
@@ -260,24 +446,31 @@ export default function UsersPage() {
                 <th className="px-4 py-3 font-medium">Имя</th>
                 <th className="px-4 py-3 font-medium">Роли</th>
                 <th className="px-4 py-3 font-medium">Статус</th>
+                <th className="px-4 py-3 font-medium">На руках</th>
                 <th className="px-4 py-3 text-right font-medium">Действия</th>
               </tr>
             </thead>
             <tbody>
               {isLoading && users.length === 0 ? (
                 <tr>
-                  <td className="px-4 py-6 text-center text-muted-foreground" colSpan={5}>
+                  <td className="px-4 py-6 text-center text-muted-foreground" colSpan={6}>
                     Загрузка...
                   </td>
                 </tr>
               ) : users.length === 0 ? (
                 <tr>
-                  <td className="px-4 py-6 text-center text-muted-foreground" colSpan={5}>
+                  <td className="px-4 py-6 text-center text-muted-foreground" colSpan={6}>
                     Пользователей нет
                   </td>
                 </tr>
+              ) : filteredUsers.length === 0 ? (
+                <tr>
+                  <td className="px-4 py-6 text-center text-muted-foreground" colSpan={6}>
+                    Ничего не найдено
+                  </td>
+                </tr>
               ) : (
-                users.map((row) => {
+                filteredUsers.map((row) => {
                   const fullName = [row.firstName, row.lastName].filter(Boolean).join(" ")
                   return (
                     <tr key={row.id} className="border-t">
@@ -312,6 +505,32 @@ export default function UsersPage() {
                         >
                           {row.isActive ? "Активен" : "Заблокирован"}
                         </span>
+                      </td>
+                      <td className="px-4 py-3 align-top">
+                        {(() => {
+                          const st = borrowedStatsByUserId.get(row.id)
+                          if (!st || st.total === 0) {
+                            return <span className="text-muted-foreground">—</span>
+                          }
+                          return (
+                            <Link
+                              href={`/admin/on-loan?userId=${row.id}`}
+                              className="inline-flex flex-col gap-1 text-sm text-primary underline-offset-4 hover:underline"
+                            >
+                              <span className="font-medium text-foreground">{st.total} на руках</span>
+                              {st.overdue > 0 ? (
+                                <span className="text-xs font-medium text-destructive">
+                                  просрочено: {st.overdue}
+                                </span>
+                              ) : null}
+                              {st.dueSoon > 0 ? (
+                                <span className="text-xs text-amber-700 dark:text-amber-400">
+                                  скоро срок: {st.dueSoon}
+                                </span>
+                              ) : null}
+                            </Link>
+                          )
+                        })()}
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center justify-end gap-2">
@@ -414,50 +633,34 @@ export default function UsersPage() {
                   />
                 </Field>
 
-                <div className="flex items-center gap-2 pt-1">
-                  <Checkbox
-                    id="user-active"
-                    checked={formState.isActive}
-                    onCheckedChange={(checked) =>
-                      setFormState((prev) => ({ ...prev, isActive: checked === true }))
-                    }
-                  />
-                  <Label htmlFor="user-active">Активен</Label>
-                </div>
+                <AdminFormSelect
+                  id="user-active"
+                  label="Статус"
+                  value={formState.isActive ? "true" : "false"}
+                  onValueChange={(v) =>
+                    setFormState((prev) => ({ ...prev, isActive: v === "true" }))
+                  }
+                  placeholder="Выберите статус"
+                  options={[
+                    { value: "true", label: "Активен" },
+                    { value: "false", label: "Заблокирован" },
+                  ]}
+                />
 
-                <div className="space-y-2 pt-2">
-                  <Label>Роли</Label>
-                  <div className="flex flex-col gap-2 rounded-md border p-3">
-                    {roles.length === 0 ? (
-                      <span className="text-xs text-muted-foreground">Роли не загружены</span>
-                    ) : (
-                      roles.map((role) => {
-                        const checked = formState.roles.includes(role.name)
-                        return (
-                          <label
-                            key={role.id}
-                            className="flex items-start gap-2 text-sm"
-                            htmlFor={`role-${role.id}`}
-                          >
-                            <Checkbox
-                              id={`role-${role.id}`}
-                              checked={checked}
-                              onCheckedChange={() => toggleRole(role.name)}
-                            />
-                            <span>
-                              <span className="font-medium">{getRoleLabel(role.name)}</span>
-                              {getRoleDescription(role.name, role.description) ? (
-                                <span className="ml-2 text-xs text-muted-foreground">
-                                  {getRoleDescription(role.name, role.description)}
-                                </span>
-                              ) : null}
-                            </span>
-                          </label>
-                        )
-                      })
-                    )}
-                  </div>
-                </div>
+                <AdminMultiSelect
+                  label="Роли"
+                  value={formState.roles}
+                  onChange={(next) => setFormState((prev) => ({ ...prev, roles: next }))}
+                  placeholder="Добавить роль"
+                  options={roles.map((role) => ({
+                    value: role.name,
+                    label: getRoleDescription(role.name, role.description)
+                      ? `${getRoleLabel(role.name)} — ${getRoleDescription(role.name, role.description)}`
+                      : getRoleLabel(role.name),
+                  }))}
+                  disabled={roles.length === 0}
+                />
+
               </FieldGroup>
             <DialogFooter className="border-t pt-4">
               <Button type="button" variant="outline" onClick={closeDialog}>

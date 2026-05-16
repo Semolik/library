@@ -6,6 +6,9 @@
     "build": "turbo build --filter=!@workspace/shared-types",
     "dev": "npm run shared-types:dev & turbo dev --filter=!@workspace/shared-types",
     "db:seed": "turbo db:seed --filter=!@workspace/shared-types",
+    "db:migrate": "npm run typeorm:migration:run --workspace @workspace/api",
+    "db:setup": "bash scripts/db-setup.sh",
+    "db:reset": "bash scripts/db-reset.sh",
     "lint": "turbo lint --filter=!@workspace/shared-types",
     "format": "turbo format --filter=!@workspace/shared-types",
     "typecheck": "turbo typecheck --filter=!@workspace/shared-types",
@@ -17,6 +20,7 @@
     "@workspace/typescript-config": "*",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
+    "shadcn": "^4.7.0",
     "turbo": "^2.8.17",
     "typescript": "5.9.3"
   },

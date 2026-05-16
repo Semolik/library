@@ -19,7 +19,8 @@
       "@app/*": ["src/*"],
       "@modules/*": ["src/modules/*"],
       "@common/*": ["src/common/*"],
-      "@config/*": ["src/config/*"]
+      "@config/*": ["src/config/*"],
+      "@database/*": ["src/database/*"]
     }
   },
   "include": ["src/**/*"],

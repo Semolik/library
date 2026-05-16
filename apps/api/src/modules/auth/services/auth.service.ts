@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserService } from '../../user/services/user.service';
 import { RoleService } from '../../security/services/role.service';
-import { JwtPayloadDto } from '@workspace/shared-types';
+import { JwtPayloadDto, RoleEnum } from '@workspace/shared-types';
 import { EnvironmentVariables } from '../../../config/env.validation';
 
 @Injectable()
@@ -37,10 +37,14 @@ export class AuthService {
       lastName,
     );
 
-    // Add default USER role
-    const userRole = await this.roleService.findByName('USER');
-    if (userRole) {
-      await this.userService.addRole(user.id, userRole.id);
+    // Первый регистрант получает SUPERUSER, если в системе ещё никто не имеет этой роли;
+    // все последующие — USER (ADMIN/LIBRARIAN назначаются вручную администратором).
+    const roleName = (await this.userService.hasAnyUserWithRole(RoleEnum.SUPERUSER))
+      ? RoleEnum.USER
+      : RoleEnum.SUPERUSER;
+    const roleToAssign = await this.roleService.findByName(roleName);
+    if (roleToAssign) {
+      await this.userService.addRole(user.id, roleToAssign.id);
     }
 
     const refreshed = await this.userService.findById(user.id);

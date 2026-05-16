@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { AppShell } from "@/components/app-shell"
+import { CenteredFormShell } from "@/components/centered-form-shell"
 import { LoginForm } from "@/components/login-form"
 import { useAuth } from "@/components/auth-provider"
 
@@ -11,14 +12,14 @@ export default function LoginPage() {
 
   return (
     <AppShell>
-      <div className="w-full max-w-sm">
+      <CenteredFormShell>
         <LoginForm
           onSuccess={(payload) => {
             login(payload.accessToken, payload.user)
             router.push("/")
           }}
         />
-      </div>
+      </CenteredFormShell>
     </AppShell>
   )
 }

@@ -46,7 +46,7 @@ export class EnvironmentVariables {
 
   @IsNumber()
   @IsOptional()
-  JWT_EXPIRATION_TIME: number = 3600;
+  JWT_EXPIRATION_TIME: number = 28800;
 
   @IsString()
   @IsOptional()
@@ -98,7 +98,7 @@ export class EnvironmentVariables {
         process.env.DATABASE_PASSWORD || process.env.POSTGRES_PASSWORD || 'postgres',
       DATABASE_NAME: process.env.DATABASE_NAME || process.env.POSTGRES_DB || 'library_db',
       JWT_SECRET: process.env.JWT_SECRET || 'secret',
-      JWT_EXPIRATION_TIME: parseInt(process.env.JWT_EXPIRATION_TIME || '3600', 10),
+      JWT_EXPIRATION_TIME: parseInt(process.env.JWT_EXPIRATION_TIME || '28800', 10),
       FIRST_SUPERUSER_EMAIL: process.env.FIRST_SUPERUSER_EMAIL || 'admin@example.com',
       FIRST_SUPERUSER_PASSWORD: process.env.FIRST_SUPERUSER_PASSWORD || 'admin123456',
       CORS_ORIGIN:

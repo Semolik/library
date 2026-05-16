@@ -1,5 +1,14 @@
-import { IsEmail, IsString, MinLength, IsOptional, IsUUID } from 'class-validator';
-import { Exclude } from 'class-transformer';
+import {
+  IsEmail,
+  IsInt,
+  IsString,
+  Max,
+  Min,
+  MinLength,
+  IsOptional,
+  IsUUID,
+} from 'class-validator';
+import { Exclude, Type } from 'class-transformer';
 
 export class UserRegisterDto {
   @IsEmail({}, { message: 'Некорректный формат email.' })
@@ -107,5 +116,36 @@ export class JwtPayloadDto {
   email: string;
 
   roles: string[];
+}
+
+/** PATCH /library/settings — хотя бы одно поле должно быть передано (проверка в сервисе). */
+export class UpdateLibrarySettingsDto {
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt({ message: 'Срок выдачи укажите целым числом дней.' })
+  @Min(1, { message: 'Срок выдачи: от 1 дня.' })
+  @Max(1095, { message: 'Срок выдачи: не более 1095 дней.' })
+  defaultLoanDays?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt({ message: 'Штраф за день укажите целым числом рублей.' })
+  @Min(0, { message: 'Штраф за день не может быть отрицательным.' })
+  @Max(1_000_000, { message: 'Штраф за день слишком велик.' })
+  finePerOverdueDay?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt({ message: 'Отсрочку укажите целым числом дней.' })
+  @Min(0, { message: 'Отсрочка не может быть отрицательной.' })
+  @Max(365, { message: 'Отсрочка не более 365 дней.' })
+  fineGraceDays?: number;
+}
+
+export class PayRentFineDto {
+  @Type(() => Number)
+  @IsInt({ message: 'Сумма оплаты — целое число рублей.' })
+  @Min(1, { message: 'Минимальная сумма оплаты 1 ₽.' })
+  fineAmount: number;
 }
 

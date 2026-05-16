@@ -41,18 +41,24 @@ npm run start:debug          # Debug mode with inspector on port 9229
 ```
 
 ### Shadcn UI Components in Monorepo
-When user examples contain imports like `@/components/ui/avatar`, `@/components/ui/dropdown-menu`, `@/components/ui/sidebar`, etc., do **not** hand-write local copies first. Install via shadcn CLI in the shared UI package:
+
+**Prefer MCP shadcn when available** (same workflow as on standalone Next apps): discover components through the registry instead of guessing names or hand-writing primitives.
+
+1. **Reuse first**: check `packages/ui/src/components` and existing `apps/web` patterns (Tailwind tokens like `text-muted-foreground`, `border-border`; icons **lucide-react**).
+2. **MCP shadcn**: inspect the registry (`get_project_registries`, `list_items_in_registries` / `search_items_in_registries`), open docs or examples if needed (`view_items_in_registries`, `get_item_examples_from_registries`), then use the install snippet from **`get_add_command_for_items`**. If the suggested command targets the repo root, **rewrite `-c` to `packages/ui`** so components land in `packages/ui` (this monorepo’s UI package).
+3. **CLI in this repo** (UI package root, not `apps/web`): when user examples use paths like `@/components/ui/avatar` or `@workspace/ui/components/avatar`, do **not** hand-write local copies first. Install via shadcn CLI into the shared UI package:
 
 ```bash
 npx shadcn@latest add <component-names> -c packages/ui
 ```
 
 Example:
+
 ```bash
 npx shadcn@latest add avatar dropdown-menu sidebar -c packages/ui
 ```
 
-Why: this repo keeps reusable UI primitives in `packages/ui/src/components`, and `apps/web` consumes them via `@workspace/ui/components/*`.
+**Why**: reusable primitives live in `packages/ui/src/components`; `apps/web` imports them via `@workspace/ui/components/*`. MCP helps pick the right component name/version and avoid duplicates before running `add`.
 
 ## Project-Specific Patterns
 
@@ -106,7 +112,7 @@ async create(@Body() dto: CreateBookDto) {}
 ### Shared Types as Single Source of Truth
 **File**: `packages/shared-types/src/`
 
-- `enums.ts` - `RoleEnum` (SUPERUSER, ADMIN, USER) and `PermissionEnum` (15+ operations)
+- `enums.ts` - `RoleEnum` (SUPERUSER, ADMIN, LIBRARIAN, USER) and `PermissionEnum` (15+ operations)
 - `dtos.ts` - All request/response shapes with `class-validator` decorators
 
 **When adding new entity**:
@@ -131,7 +137,7 @@ export class BookModel { }
 
 ### Auth Flow
 1. `/auth/register` (UserRegisterDto) → AuthService.register()
-2. Hashes password via bcrypt, creates user, assigns default USER role
+2. Hashes password via bcrypt, creates user, assigns role per registration rules / defaults (`seed.config.ts` for seeded accounts)
 3. Returns `{ accessToken: JWT, user: { id, email, roles: [...] } }`
 4. Frontend stores token in localStorage, sends as `Authorization: Bearer {token}`
 5. Backend validates with JwtStrategy (passport-jwt), extracts `sub` (user ID) + `roles`
@@ -144,12 +150,9 @@ Controller (validates DTO) → Service (finds/creates via TypeOrmRepository) →
 ### Database Initialization
 **File**: `apps/api/src/scripts/seed.ts`
 
-Runs on `npm run db:seed`. Creates:
-- All 15 permissions from `PermissionEnum`
-- 3 roles (SUPERUSER, ADMIN, USER) + their permission assignments
-- 1 superuser account from `.env` (FIRST_SUPERUSER_EMAIL/PASSWORD)
+Runs on `npm run db:seed`. Syncs permissions and roles from config, ensures superuser from `.env` (FIRST_SUPERUSER_EMAIL/PASSWORD). Role set includes SUPERUSER, ADMIN, LIBRARIAN, USER per `seed.config.ts`.
 
-**Re-running seed**: Clears all data in permission, role, user, and join tables—use only in development.
+**Re-running seed**: In typical dev setup does not wipe domain/library tables; use only in development. If schema is out of date, apply migrations then seed.
 
 ## Naming Conventions
 

@@ -1,33 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { PermissionModel } from '../models/permission.model';
+import { PermissionRepository } from '../repositories/permission.repository';
 
 @Injectable()
 export class PermissionService {
-  constructor(
-    @InjectRepository(PermissionModel)
-    private permissionRepository: Repository<PermissionModel>,
-  ) {}
+  constructor(private readonly permissionRepository: PermissionRepository) {}
 
   async findById(id: string): Promise<PermissionModel | null> {
-    return this.permissionRepository.findOne({
-      where: { id },
-      relations: ['roles'],
-    });
+    return this.permissionRepository.findByIdWithRoles(id);
   }
 
   async findByName(name: string): Promise<PermissionModel | null> {
-    return this.permissionRepository.findOne({
-      where: { name },
-      relations: ['roles'],
-    });
+    return this.permissionRepository.findByNameWithRoles(name);
   }
 
   async findAll(): Promise<PermissionModel[]> {
-    return this.permissionRepository.find({
-      relations: ['roles'],
-    });
+    return this.permissionRepository.findAllWithRoles();
   }
 
   async create(name: string, description?: string): Promise<PermissionModel> {
@@ -35,11 +23,8 @@ export class PermissionService {
     return this.permissionRepository.save(permission);
   }
 
-  async update(
-    id: string,
-    data: Partial<PermissionModel>,
-  ): Promise<PermissionModel> {
-    await this.permissionRepository.update(id, data);
+  async update(id: string, data: Partial<PermissionModel>): Promise<PermissionModel> {
+    await this.permissionRepository.updateById(id, data);
     const permission = await this.findById(id);
     if (!permission) {
       throw new Error(`Permission with id ${id} not found after update`);
@@ -47,4 +32,3 @@ export class PermissionService {
     return permission;
   }
 }
-

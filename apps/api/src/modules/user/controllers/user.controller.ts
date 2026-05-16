@@ -18,9 +18,76 @@ import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../auth/guards/roles.guard';
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { CurrentUser } from '../../auth/decorators/current-user.decorator';
-import { JwtPayloadDto } from '@workspace/shared-types';
+import { JwtPayloadDto, RoleEnum } from '@workspace/shared-types';
+import { UserModel } from '../models/user.model';
 
-const ADMIN_ROLES = ['SUPERUSER', 'ADMIN'] as const;
+function userWithoutPassword(user: UserModel): Omit<UserModel, 'password'> {
+  const { password: _pw, ...rest } = user;
+  return rest;
+}
+
+const ELEVATED_STAFF_ROLES = ['SUPERUSER', 'ADMIN'] as const;
+
+/** Ещё и библиотекарь (регистрация читателей по ТЗ) */
+const USER_MANAGEMENT_ROLES = ['SUPERUSER', 'ADMIN', 'LIBRARIAN'] as const;
+
+const NON_READER_ROLE_NAMES = new Set<string>([
+  RoleEnum.SUPERUSER,
+  RoleEnum.ADMIN,
+  RoleEnum.LIBRARIAN,
+]);
+
+function isElevatedStaff(roles?: string[]): boolean {
+  return Boolean(
+    roles?.some((r) =>
+      ELEVATED_STAFF_ROLES.includes(r as (typeof ELEVATED_STAFF_ROLES)[number]),
+    ),
+  );
+}
+
+function isOnlyReaderRoles(roleNames: string[]): boolean {
+  return roleNames.every((name) => name === RoleEnum.USER);
+}
+
+function targetHasNonReaderRoles(roleNames: string[]): boolean {
+  return roleNames.some((name) => NON_READER_ROLE_NAMES.has(name));
+}
+
+function assertRoleAssignmentAllowed(current: JwtPayloadDto, assignedRoles: string[]): void {
+  if (isElevatedStaff(current.roles)) return;
+
+  const isLibrarian = current.roles?.includes(RoleEnum.LIBRARIAN);
+  if (!isLibrarian) {
+    throw new ForbiddenException('Недостаточно прав.');
+  }
+
+  if (!isOnlyReaderRoles(assignedRoles)) {
+    throw new ForbiddenException('Библиотекарь может назначать только роль читателя.');
+  }
+}
+
+async function assertLibrarianMayAccessUserCard(
+  userService: UserService,
+  current: JwtPayloadDto,
+  targetUserId: string,
+): Promise<void> {
+  if (isElevatedStaff(current.roles)) return;
+
+  const isLibrarian = current.roles?.includes(RoleEnum.LIBRARIAN);
+  if (!isLibrarian) return;
+
+  const target = await userService.findById(targetUserId);
+  if (!target) {
+    throw new NotFoundException('Пользователь не найден.');
+  }
+
+  const names = target.roles?.map((r) => r.name) ?? [];
+  if (names.length > 0 && targetHasNonReaderRoles(names)) {
+    throw new ForbiddenException(
+      'Карточки персонала и администраторов доступны только администратору библиотеки.',
+    );
+  }
+}
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -60,7 +127,11 @@ export class UserController {
   @Get('me')
   @UseGuards(JwtAuthGuard)
   async getCurrentUser(@CurrentUser() user: JwtPayloadDto) {
-    return this.userService.findById(user.sub);
+    const row = await this.userService.findById(user.sub);
+    if (!row) {
+      throw new NotFoundException('Пользователь не найден.');
+    }
+    return userWithoutPassword(row);
   }
 
   @Patch('me')
@@ -78,15 +149,18 @@ export class UserController {
       throw new BadRequestException('Некорректный формат email.');
     }
 
-    return this.userService.updateProfile(user.sub, { email, firstName, lastName });
+    const updated = await this.userService.updateProfile(user.sub, { email, firstName, lastName });
+    return userWithoutPassword(updated);
   }
 
   @Get('list-roles')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(...ADMIN_ROLES)
-  async listRoles() {
+  @Roles(...USER_MANAGEMENT_ROLES)
+  async listRoles(@CurrentUser() current: JwtPayloadDto) {
     const roles = await this.roleService.findAll();
-    return roles.map((role) => ({
+    const elevated = isElevatedStaff(current.roles);
+    const filtered = elevated ? roles : roles.filter((role) => role.name === RoleEnum.USER);
+    return filtered.map((role) => ({
       id: role.id,
       name: role.name,
       description: role.description,
@@ -95,15 +169,17 @@ export class UserController {
 
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(...ADMIN_ROLES)
+  @Roles(...USER_MANAGEMENT_ROLES)
   async listUsers() {
     return this.userService.findAllUsers();
   }
 
   @Get(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(...ADMIN_ROLES)
-  async getUser(@Param('id') id: string) {
+  @Roles(...USER_MANAGEMENT_ROLES)
+  async getUser(@CurrentUser() current: JwtPayloadDto, @Param('id') id: string) {
+    await assertLibrarianMayAccessUserCard(this.userService, current, id);
+
     const user = await this.userService.findById(id);
     if (!user) {
       throw new NotFoundException('Пользователь не найден.');
@@ -113,7 +189,7 @@ export class UserController {
 
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(...ADMIN_ROLES)
+  @Roles(...USER_MANAGEMENT_ROLES)
   async createUser(
     @CurrentUser() current: JwtPayloadDto,
     @Req() req: Request,
@@ -129,13 +205,20 @@ export class UserController {
       throw new BadRequestException('Пароль должен быть не короче 8 символов.');
     }
 
-    const roles = asStringArray(body.roles) ?? [];
+    let roles = asStringArray(body.roles) ?? [];
+
     if (
-      roles.includes('SUPERUSER') &&
-      !current.roles?.includes('SUPERUSER')
+      roles.includes(RoleEnum.SUPERUSER) &&
+      !current.roles?.includes(RoleEnum.SUPERUSER)
     ) {
       throw new ForbiddenException('Назначить роль SUPERUSER может только суперпользователь.');
     }
+
+    if (!isElevatedStaff(current.roles) && current.roles?.includes(RoleEnum.LIBRARIAN)) {
+      roles = roles.length === 0 ? [RoleEnum.USER] : roles;
+    }
+
+    assertRoleAssignmentAllowed(current, roles);
 
     return this.userService.adminCreate({
       email,
@@ -149,12 +232,14 @@ export class UserController {
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(...ADMIN_ROLES)
+  @Roles(...USER_MANAGEMENT_ROLES)
   async updateUser(
     @CurrentUser() current: JwtPayloadDto,
     @Param('id') id: string,
     @Req() req: Request,
   ) {
+    await assertLibrarianMayAccessUserCard(this.userService, current, id);
+
     const body = (req.body ?? {}) as Record<string, unknown>;
     const email = asString(body.email);
 
@@ -162,13 +247,31 @@ export class UserController {
       throw new BadRequestException('Некорректный формат email.');
     }
 
-    const roles = asStringArray(body.roles);
-    const isSuperuser = current.roles?.includes('SUPERUSER') ?? false;
-    if (roles && roles.includes('SUPERUSER') && !isSuperuser) {
-      throw new ForbiddenException('Назначить роль SUPERUSER может только суперпользователь.');
+    const rolesInput = asStringArray(body.roles);
+    const isSuperuser = current.roles?.includes(RoleEnum.SUPERUSER) ?? false;
+
+    let rolesToPersist: string[] | undefined = rolesInput;
+
+    if (rolesInput !== undefined) {
+      let effective = rolesInput;
+      if (!isElevatedStaff(current.roles) && current.roles?.includes(RoleEnum.LIBRARIAN)) {
+        effective = rolesInput.length === 0 ? [RoleEnum.USER] : rolesInput;
+      }
+
+      if (effective.includes(RoleEnum.SUPERUSER) && !isSuperuser) {
+        throw new ForbiddenException('Назначить роль SUPERUSER может только суперпользователь.');
+      }
+
+      assertRoleAssignmentAllowed(current, effective);
+      rolesToPersist = effective;
     }
 
-    if (current.sub === id && roles && !roles.includes('SUPERUSER') && isSuperuser) {
+    if (
+      current.sub === id &&
+      rolesToPersist &&
+      !rolesToPersist.includes(RoleEnum.SUPERUSER) &&
+      isSuperuser
+    ) {
       throw new BadRequestException('Нельзя снять с себя роль SUPERUSER.');
     }
 
@@ -177,17 +280,19 @@ export class UserController {
       firstName: asNullableString(body.firstName),
       lastName: asNullableString(body.lastName),
       isActive: asBoolean(body.isActive),
-      roles,
+      roles: rolesToPersist,
     });
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(...ADMIN_ROLES)
+  @Roles(...USER_MANAGEMENT_ROLES)
   async deleteUser(
     @CurrentUser() current: JwtPayloadDto,
     @Param('id') id: string,
   ) {
+    await assertLibrarianMayAccessUserCard(this.userService, current, id);
+
     if (current.sub === id) {
       throw new BadRequestException('Нельзя удалить собственный аккаунт.');
     }

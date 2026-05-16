@@ -4,8 +4,19 @@ import { EnvironmentVariables } from '../config/env.validation';
 import { UserModel } from '../modules/user/models/user.model';
 import { RoleModel } from '../modules/security/models/role.model';
 import { PermissionModel } from '../modules/security/models/permission.model';
-import { UserRoleModel } from '../modules/security/models/user-role.model';
-import { PermissionRoleModel } from '../modules/security/models/permission-role.model';
+import {
+  AuthorModel,
+  BookAuthorModel,
+  BookCopyModel,
+  BookModel,
+  CategoryModel,
+  CityModel,
+  PaidRentFineModel,
+  PublishingHouseModel,
+  RentedBookModel,
+  ReturnBookModel,
+  StorageModel,
+} from '../modules/library-data/models';
 import * as bcrypt from 'bcrypt';
 import { RoleEnum } from '@workspace/shared-types';
 import { PERMISSIONS_CONFIG, ROLES_CONFIG } from '../config/seed.config';
@@ -30,8 +41,17 @@ async function seed() {
       UserModel,
       RoleModel,
       PermissionModel,
-      UserRoleModel,
-      PermissionRoleModel,
+      CategoryModel,
+      PublishingHouseModel,
+      CityModel,
+      BookModel,
+      BookAuthorModel,
+      AuthorModel,
+      BookCopyModel,
+      StorageModel,
+      RentedBookModel,
+      ReturnBookModel,
+      PaidRentFineModel,
     ],
     synchronize: false,
     logging: true,
@@ -78,7 +98,7 @@ async function seed() {
         if (permission) {
           const existingPermissionRole = await dataSource.query(
             `
-              SELECT id
+              SELECT 1
               FROM "security"."roles_x_permissions"
               WHERE
                 "permission_id" = $1
@@ -140,7 +160,7 @@ async function seed() {
 
     const existingUserRole = await dataSource.query(
       `
-        SELECT id
+        SELECT 1
         FROM "security"."roles_x_users"
         WHERE
           "user_id" = $1

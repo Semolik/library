@@ -17,6 +17,9 @@ const MESSAGE_MAP: Record<string, string> = {
   "Invalid token": "Недействительный токен авторизации.",
   "User already exists": "Пользователь с таким email уже существует.",
   Unauthorized: "Вы не авторизованы. Выполните вход.",
+  unauthorized: "Вы не авторизованы. Выполните вход.",
+  Forbidden: "Недостаточно прав для выполнения действия.",
+  forbidden: "Недостаточно прав для выполнения действия.",
   "email must be an email": "Некорректный формат email.",
   "password must be longer than or equal to 8 characters":
     "Пароль должен быть не короче 8 символов.",
@@ -24,7 +27,8 @@ const MESSAGE_MAP: Record<string, string> = {
 }
 
 function translateMessage(message: string) {
-  return MESSAGE_MAP[message] ?? message
+  const t = message.trim()
+  return MESSAGE_MAP[t] ?? MESSAGE_MAP[t.toLowerCase()] ?? t
 }
 
 function normalizeMessage(message: string) {
