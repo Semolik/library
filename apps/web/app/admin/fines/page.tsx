@@ -227,7 +227,7 @@ export default function AdminFinesPage() {
                           </Button>
                         ) : null}
                         <Button type="button" size="sm" variant="outline" asChild>
-                          <Link href={`/admin/rentals?rentId=${encodeURIComponent(row.rentId)}`}>Карточка</Link>
+                          <Link href="/admin/rentals">Карточка</Link>
                         </Button>
                       </div>
                     </TableCell>

@@ -284,21 +284,7 @@ function OnLoanPageInner() {
                     <td className="px-4 py-3">
                       <div className="flex flex-wrap justify-end gap-2">
                         <Button type="button" variant="outline" size="sm" asChild>
-                          <Link href={`/admin/rentals?rentId=${encodeURIComponent(row.rentId)}`}>Возврат</Link>
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          className="shrink-0"
-                          onClick={() => {
-                            void navigator.clipboard.writeText(row.rentId).then(
-                              () => toast.success("Номер скопирован"),
-                              () => toast.error("Не удалось скопировать"),
-                            )
-                          }}
-                        >
-                          Копировать номер
+                          <Link href="/admin/rentals">Возврат</Link>
                         </Button>
                       </div>
                     </td>

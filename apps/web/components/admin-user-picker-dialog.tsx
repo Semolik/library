@@ -6,6 +6,7 @@ import { toast } from "sonner"
 import { userLabel } from "@/app/admin/rent-helpers"
 import { ApiError } from "@/client/api-client"
 import { adminUsersClient, type AdminUserListItem } from "@/client/admin-users-client"
+import { libraryClient, type LibraryFineLedgerRow } from "@/client/library-client"
 import { Button } from "@workspace/ui/components/button"
 import {
   Dialog,
@@ -16,10 +17,48 @@ import {
 } from "@workspace/ui/components/dialog"
 import { Input } from "@workspace/ui/components/input"
 import { Label } from "@workspace/ui/components/label"
+import { cn } from "@workspace/ui/lib/utils"
 
 const DEBOUNCE_MS = 300
 
 type LoadState = "idle" | "loading" | "ok" | "no_token" | "unauthorized" | "forbidden" | "error"
+
+type UserDebtSummary = {
+  outstandingFineAmount: number
+  activeOverdueCount: number
+}
+
+function formatRub(amount: number): string {
+  return new Intl.NumberFormat("ru-RU", {
+    style: "currency",
+    currency: "RUB",
+    maximumFractionDigits: 0,
+  }).format(amount)
+}
+
+function isActiveOverdue(row: LibraryFineLedgerRow) {
+  if (!row.isActive || !row.dueDate) return false
+  const [year, month, day] = row.dueDate.split("-").map(Number)
+  if (!year || !month || !day) return false
+  const due = new Date(year, month - 1, day)
+  const today = new Date()
+  const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+  return due < todayDate
+}
+
+function buildDebtByUser(rows: LibraryFineLedgerRow[]) {
+  const debtByUser = new Map<string, UserDebtSummary>()
+  for (const row of rows) {
+    const prev = debtByUser.get(row.userId) ?? {
+      outstandingFineAmount: 0,
+      activeOverdueCount: 0,
+    }
+    prev.outstandingFineAmount += Math.max(0, row.outstandingFineAmount)
+    if (isActiveOverdue(row)) prev.activeOverdueCount += 1
+    debtByUser.set(row.userId, prev)
+  }
+  return debtByUser
+}
 
 export function AdminUserPickerDialog(props: {
   open: boolean
@@ -31,6 +70,7 @@ export function AdminUserPickerDialog(props: {
   const [loading, setLoading] = React.useState(false)
   const [loadState, setLoadState] = React.useState<LoadState>("idle")
   const [users, setUsers] = React.useState<AdminUserListItem[]>([])
+  const [debtByUser, setDebtByUser] = React.useState<Map<string, UserDebtSummary>>(new Map())
   const [search, setSearch] = React.useState("")
   const [debouncedSearch, setDebouncedSearch] = React.useState("")
   const [retryTick, setRetryTick] = React.useState(0)
@@ -53,14 +93,19 @@ export function AdminUserPickerDialog(props: {
       setLoading(true)
       setLoadState("loading")
       try {
-        const list = await adminUsersClient.list(token.trim())
+        const [list, fines] = await Promise.all([
+          adminUsersClient.list(token.trim()),
+          libraryClient.listFines(token.trim()).catch(() => null),
+        ])
         if (!cancelled) {
           setUsers(list)
+          setDebtByUser(fines ? buildDebtByUser(fines.items) : new Map())
           setLoadState("ok")
         }
       } catch (e) {
         if (!cancelled) {
           setUsers([])
+          setDebtByUser(new Map())
           if (e instanceof ApiError) {
             if (e.status === 401) setLoadState("unauthorized")
             else if (e.status === 403) setLoadState("forbidden")
@@ -167,16 +212,39 @@ export function AdminUserPickerDialog(props: {
               <ul className="divide-y divide-border">
                 {filtered.map((u) => (
                   <li key={u.id}>
+                    {(() => {
+                      const debt = debtByUser.get(u.id)
+                      const hasFineDebt = Boolean(debt && debt.outstandingFineAmount > 0)
+                      const hasOverdue = Boolean(debt && debt.activeOverdueCount > 0)
+                      return (
                     <button
                       type="button"
-                      className="flex w-full px-3 py-2.5 text-left text-sm transition-colors hover:bg-muted/60"
+                      className={cn(
+                        "flex w-full flex-col gap-1 px-3 py-2.5 text-left text-sm transition-colors hover:bg-muted/60",
+                        hasFineDebt && "bg-destructive/[0.06] hover:bg-destructive/[0.09]",
+                        !hasFineDebt && hasOverdue && "bg-amber-500/[0.07] hover:bg-amber-500/[0.1]",
+                      )}
                       onClick={() => {
                         onPick(u)
                         onOpenChange(false)
                       }}
                     >
-                      {userLabel(u)}
+                      <span className="font-medium text-foreground">{userLabel(u)}</span>
+                      {hasFineDebt ? (
+                        <span className="text-xs font-medium text-destructive">
+                          Есть задолженность: {formatRub(debt?.outstandingFineAmount ?? 0)}
+                          {hasOverdue ? ` · просрочено выдач: ${debt?.activeOverdueCount ?? 0}` : ""}
+                        </span>
+                      ) : hasOverdue ? (
+                        <span className="text-xs font-medium text-amber-700 dark:text-amber-400">
+                          Есть просроченные выдачи: {debt?.activeOverdueCount ?? 0}
+                        </span>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">Задолженности нет</span>
+                      )}
                     </button>
+                      )
+                    })()}
                   </li>
                 ))}
               </ul>

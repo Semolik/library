@@ -3,7 +3,6 @@
 import Link from "next/link"
 import * as React from "react"
 import { Suspense } from "react"
-import { useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 import { borrowedReaderLabel, formatRuDateFromIso, formatRub } from "@/app/admin/rent-helpers"
 import { libraryClient, type LibraryRentFineSnapshot } from "@/client/library-client"
@@ -26,7 +25,6 @@ import { Banknote, ClipboardCheck, UserSearch } from "lucide-react"
 
 function AdminRentalsInner() {
   const { token } = useAuth()
-  const searchParams = useSearchParams()
   const [rentId, setRentId] = React.useState("")
   const [snapshot, setSnapshot] = React.useState<LibraryRentFineSnapshot | null>(null)
   const [snapshotLoading, setSnapshotLoading] = React.useState(false)
@@ -35,12 +33,6 @@ function AdminRentalsInner() {
   const [payOpen, setPayOpen] = React.useState(false)
   const [payAmount, setPayAmount] = React.useState("")
   const [rentPickerOpen, setRentPickerOpen] = React.useState(false)
-  const rentFieldId = React.useId()
-
-  React.useEffect(() => {
-    const q = searchParams.get("rentId")?.trim()
-    if (q) setRentId(q)
-  }, [searchParams])
 
   const refreshSnapshot = React.useCallback(async () => {
     const id = rentId.trim()
@@ -112,14 +104,13 @@ function AdminRentalsInner() {
       title="Возврат и штрафы"
       description={
         <>
-          Найдите читателя в модальном окне и выберите его книгу на руках либо вставьте UUID выдачи — из окна «Книга
-          выдана», со страницы{" "}
+          Найдите читателя в модальном окне и выберите его книгу на руках. Список активных выдач также доступен в разделе{" "}
           <Link href="/admin/on-loan" className="font-medium text-primary underline underline-offset-4 hover:no-underline">
             На руках
-          </Link>{" "}
-          или из{" "}
+          </Link>
+          , а начисления и оплаты — в{" "}
           <Link href="/admin/fines" className="font-medium text-primary underline underline-offset-4 hover:no-underline">
-            журнала штрафов
+            журнале штрафов
           </Link>
           .
         </>
@@ -127,24 +118,17 @@ function AdminRentalsInner() {
     >
       <div className="space-y-6">
           <div className="rounded-xl border bg-card p-5 shadow-sm">
-            <div className="grid gap-2">
-              <Label htmlFor={rentFieldId}>Идентификатор выдачи</Label>
-              <Input
-                id={rentFieldId}
-                placeholder="Вставьте UUID из журнала или после выдачи"
-                value={rentId}
-                onChange={(e) => setRentId(e.target.value)}
-                className="font-mono text-sm"
-              />
-              <div className="flex flex-wrap gap-2 pt-1">
-                <Button type="button" variant="default" size="sm" disabled={!token} onClick={() => setRentPickerOpen(true)}>
-                  <UserSearch className="mr-2 size-4" />
-                  Найти по читателю…
-                </Button>
-                <Button type="button" variant="secondary" size="sm" disabled={!rentId.trim()} onClick={() => void refreshSnapshot()}>
-                  Загрузить карточку
-                </Button>
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div className="min-w-0 flex-1 space-y-1">
+                <p className="text-sm font-medium text-foreground">Выберите выдачу для возврата</p>
+                <p className="text-sm text-muted-foreground">
+                  Откройте список читателей, затем выберите книгу, которая сейчас на руках.
+                </p>
               </div>
+              <Button type="button" variant="default" disabled={!token} onClick={() => setRentPickerOpen(true)}>
+                <UserSearch className="mr-2 size-4" />
+                Найти по читателю
+              </Button>
             </div>
           </div>
 
@@ -223,8 +207,8 @@ function AdminRentalsInner() {
                 </Button>
               </div>
             </div>
-          ) : rentId.trim() ? null : (
-            <p className="text-sm text-muted-foreground">Введите номер выдачи или перейдите по ссылке из журнала.</p>
+          ) : (
+            <p className="text-sm text-muted-foreground">Выберите выдачу через поиск по читателю.</p>
           )}
       </div>
 

@@ -4,13 +4,15 @@ import Link from "next/link"
 import { useParams } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 import { toast } from "sonner"
-import { ArrowLeft, BookOpen, Building2, ChevronRight, MapPin, Tags, Users } from "lucide-react"
+import { ArrowLeft, BookOpen, Building2, ChevronRight, MapPin, Pencil, Tags, Users } from "lucide-react"
 import { libraryPublicClient, type LibraryBookAvailabilityRow } from "@/client/library-public-client"
 import type { LibraryAuthor, LibraryBook } from "@/client/library-client"
 import { ApiError } from "@/client/api-client"
 import { AppShell } from "@/components/app-shell"
 import { BookFavoriteToggle } from "@/components/book-favorite-toggle"
+import { useAuth } from "@/components/auth-provider"
 import { catalogHomeWithFilters } from "@/lib/catalog-deep-link"
+import { isLibraryCatalogAdminRole } from "@/lib/library-staff"
 import { BOOK_COVER_ASPECT_CLASS } from "@/components/admin-book-cover-thumb"
 import { Badge } from "@workspace/ui/components/badge"
 import { Button } from "@workspace/ui/components/button"
@@ -34,6 +36,7 @@ function authorShortName(a: LibraryAuthor): string {
 export default function PublicBookPage() {
   const params = useParams()
   const id = typeof params.id === "string" ? params.id : ""
+  const { user, isHydrated } = useAuth()
 
   const [book, setBook] = useState<LibraryBook | null>(null)
   const [availability, setAvailability] = useState<LibraryBookAvailabilityRow[] | null>(null)
@@ -78,9 +81,12 @@ export default function PublicBookPage() {
   const city = book?.city
   const authorRows = book?.bookAuthors?.filter((ba) => ba.author?.id) ?? []
 
+  const canEditInAdmin =
+    isHydrated && book && isLibraryCatalogAdminRole(user?.roles ?? [])
+
   return (
     <AppShell>
-      <article className="flex w-full max-w-5xl flex-col gap-8">
+      <article className="flex w-full flex-col gap-8">
         <nav aria-label="Навигация" className="flex flex-wrap items-center gap-1 text-sm text-muted-foreground">
           <Button type="button" variant="ghost" size="sm" className="h-8 px-2" asChild>
             <Link href="/">
@@ -103,6 +109,14 @@ export default function PublicBookPage() {
         </nav>
 
         <div className="flex flex-wrap gap-2">
+          {canEditInAdmin ? (
+            <Button type="button" size="sm" asChild>
+              <Link href={`/admin/books/${id}`}>
+                <Pencil className="mr-2 size-4" />
+                Редактировать
+              </Link>
+            </Button>
+          ) : null}
           <Button type="button" variant="outline" size="sm" asChild>
             <Link href="/my-books">Мои книги</Link>
           </Button>

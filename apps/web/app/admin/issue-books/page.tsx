@@ -13,9 +13,11 @@ import {
 import type { AdminUserListItem } from "@/client/admin-users-client"
 import {
   libraryClient,
+  type LibraryBook,
   type LibraryBookCopy,
   type LibraryRent,
 } from "@/client/library-client"
+import { AdminBookPickerDialog } from "@/components/admin-book-picker-dialog"
 import { AdminCopyPickerDialog } from "@/components/admin-copy-picker-dialog"
 import { AdminSectionGuard } from "@/components/admin-section-guard"
 import { AdminUserPickerDialog } from "@/components/admin-user-picker-dialog"
@@ -38,9 +40,11 @@ function canEditLoanSettings(roles: string[] | undefined): boolean {
 
 export default function AdminIssueBooksPage() {
   const { token, user } = useAuth()
+  const [bookPickerOpen, setBookPickerOpen] = React.useState(false)
   const [copyPickerOpen, setCopyPickerOpen] = React.useState(false)
   const [userPickerOpen, setUserPickerOpen] = React.useState(false)
   const [settingsDialogOpen, setSettingsDialogOpen] = React.useState(false)
+  const [selectedBook, setSelectedBook] = React.useState<LibraryBook | null>(null)
   const [selectedCopy, setSelectedCopy] = React.useState<LibraryBookCopy | null>(null)
   const [selectedUser, setSelectedUser] = React.useState<AdminUserListItem | null>(null)
   const [defaultLoanDays, setDefaultLoanDays] = React.useState(14)
@@ -113,6 +117,7 @@ export default function AdminIssueBooksPage() {
         token,
       )
       setCreatedRent(rent)
+      setSelectedBook(null)
       setSelectedCopy(null)
       setSelectedUser(null)
       toast.success("Книга выдана")
@@ -166,11 +171,21 @@ export default function AdminIssueBooksPage() {
 
   const showLoanSettings = canEditLoanSettings(user?.roles)
   const canSubmit = Boolean(token && selectedCopy && selectedUser && dueDate.trim() && !settingsLoading)
+  const selectedBookMeta = selectedBook
+    ? [
+        `${selectedBook.publicationYear} г.`,
+        selectedBook.isbn,
+        `${selectedBook.pages} стр.`,
+        typeof selectedBook.copyCount === "number" ? `${selectedBook.copyCount} экз. в фонде` : null,
+      ]
+        .filter(Boolean)
+        .join(" · ")
+    : ""
 
   return (
     <AdminSectionGuard
       title="Выдача книг"
-      contentClassName="mx-auto w-full max-w-md"
+      contentClassName="mx-auto w-full max-w-3xl"
       description={
         <div className="space-y-2">
           <p>
@@ -243,10 +258,7 @@ export default function AdminIssueBooksPage() {
                 </p>
               ) : null}
               <p className="mt-2 text-muted-foreground">
-                Если понадобится оформить возврат позже, понадобится номер ниже — его можно скопировать (Ctrl+C / ⌘C).
-              </p>
-              <p className="mt-2 break-all rounded-md bg-background px-2 py-1.5 font-mono text-xs text-foreground">
-                {createdRent.id}
+                Для возврата откройте раздел «Возврат» и найдите выдачу по читателю.
               </p>
             </div>
           ) : null}
@@ -256,18 +268,49 @@ export default function AdminIssueBooksPage() {
             <div className="rounded-lg border border-border bg-card p-4">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="min-w-0 flex-1 space-y-1">
-                  <p className="text-sm font-medium text-foreground">Книга из фонда</p>
+                  <p className="text-sm font-medium text-foreground">Книга</p>
                   <p className="text-sm leading-snug text-muted-foreground">
-                    {selectedCopy ? copyLabel(selectedCopy) : "Нажмите «Выбрать книгу» и найдите нужный том"}
+                    {selectedBook ? (
+                      <>
+                        <span className="font-medium text-foreground">{selectedBook.title}</span>
+                        {selectedBookMeta ? <span className="block text-xs">{selectedBookMeta}</span> : null}
+                      </>
+                    ) : (
+                      "Сначала выберите книгу, у которой есть свободные экземпляры"
+                    )}
                   </p>
                 </div>
-                <Button type="button" variant="secondary" disabled={!token} onClick={() => setCopyPickerOpen(true)}>
-                  Выбрать книгу
+                <Button type="button" variant="secondary" disabled={!token} onClick={() => setBookPickerOpen(true)}>
+                  {selectedBook ? "Сменить книгу" : "Выбрать книгу"}
                 </Button>
               </div>
             </div>
 
             <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Шаг 2</p>
+            <div className="rounded-lg border border-border bg-card p-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="min-w-0 flex-1 space-y-1">
+                  <p className="text-sm font-medium text-foreground">Экземпляр</p>
+                  <p className="text-sm leading-snug text-muted-foreground">
+                    {selectedCopy
+                      ? copyLabel(selectedCopy)
+                      : selectedBook
+                        ? "Теперь выберите конкретный свободный экземпляр"
+                        : "Сначала выберите книгу"}
+                  </p>
+                </div>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  disabled={!token || !selectedBook}
+                  onClick={() => setCopyPickerOpen(true)}
+                >
+                  {selectedCopy ? "Сменить экземпляр" : "Выбрать экземпляр"}
+                </Button>
+              </div>
+            </div>
+
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Шаг 3</p>
             <div className="rounded-lg border border-border bg-card p-4">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="min-w-0 flex-1 space-y-1">
@@ -282,7 +325,7 @@ export default function AdminIssueBooksPage() {
               </div>
             </div>
 
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Шаг 3</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Шаг 4</p>
             <div className="grid min-w-[200px] gap-1.5">
               <Label htmlFor="due-date">До какого числа вернуть</Label>
               <Input
@@ -309,10 +352,22 @@ export default function AdminIssueBooksPage() {
         </form>
       )}
 
+      <AdminBookPickerDialog
+        open={bookPickerOpen}
+        onOpenChange={setBookPickerOpen}
+        token={token}
+        onPick={(book) => {
+          setSelectedBook(book)
+          setSelectedCopy(null)
+          setCopyPickerOpen(true)
+        }}
+      />
       <AdminCopyPickerDialog
         open={copyPickerOpen}
         onOpenChange={setCopyPickerOpen}
         token={token}
+        bookId={selectedBook?.id}
+        bookTitle={selectedBook?.title}
         onPick={(c) => setSelectedCopy(c)}
       />
       <AdminUserPickerDialog

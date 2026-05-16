@@ -20,9 +20,11 @@ export function AdminCopyPickerDialog(props: {
   open: boolean
   onOpenChange: (open: boolean) => void
   token?: string | null
+  bookId?: string | null
+  bookTitle?: string | null
   onPick: (copy: LibraryBookCopy) => void
 }) {
-  const { open, onOpenChange, token, onPick } = props
+  const { open, onOpenChange, token, bookId, bookTitle, onPick } = props
   const [loading, setLoading] = React.useState(false)
   const [copies, setCopies] = React.useState<LibraryBookCopy[]>([])
   const [search, setSearch] = React.useState("")
@@ -67,7 +69,10 @@ export function AdminCopyPickerDialog(props: {
     }
   }, [search])
 
-  const available = React.useMemo(() => copies.filter((c) => !c.activeRent), [copies])
+  const available = React.useMemo(
+    () => copies.filter((c) => !c.activeRent && (!bookId || c.bookId === bookId)),
+    [bookId, copies],
+  )
 
   const filtered = React.useMemo(() => {
     const q = debouncedSearch.toLowerCase()
@@ -79,19 +84,21 @@ export function AdminCopyPickerDialog(props: {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="flex max-h-[min(90vh,640px)] w-[calc(100vw-2rem)] max-w-xl flex-col gap-0 overflow-hidden p-0 sm:max-w-xl">
         <DialogHeader className="shrink-0 space-y-1 border-b px-6 py-4 pr-14 text-left">
-          <DialogTitle>Какую книгу выдаём?</DialogTitle>
+          <DialogTitle>Какой экземпляр выдаём?</DialogTitle>
           <DialogDescription>
-            Показаны только книги, которые сейчас в фонде (ещё не выданы). Можно искать по названию, номеру или залу.
+            {bookTitle
+              ? `Показаны свободные экземпляры книги «${bookTitle}». Можно искать по номеру или залу.`
+              : "Показаны только экземпляры, которые сейчас в фонде (ещё не выданы). Можно искать по названию, номеру или залу."}
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-3 px-6 pb-6 pt-4">
           <div className="grid gap-1.5">
-            <Label htmlFor={searchFieldId}>Найти в списке</Label>
+            <Label htmlFor={searchFieldId}>Найти экземпляр</Label>
             <Input
               id={searchFieldId}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Название, номер по каталогу или зал…"
+              placeholder={bookTitle ? "Номер по каталогу или зал…" : "Название, номер по каталогу или зал…"}
               disabled={loading}
             />
           </div>

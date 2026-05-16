@@ -42,7 +42,7 @@ export function AdminFormSelect({
     <div className="grid gap-2">
       <Label htmlFor={id}>{label}</Label>
       {hint}
-      <Select value={value || undefined} onValueChange={onValueChange} disabled={disabled}>
+      <Select value={value?.trim() ? value.trim() : undefined} onValueChange={onValueChange} disabled={disabled}>
         <SelectTrigger id={id} className="w-full">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>

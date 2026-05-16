@@ -21,6 +21,7 @@ import {
   Star,
   Tags,
   Users,
+  type LucideIcon,
 } from "lucide-react"
 import { Button } from "@workspace/ui/components/button"
 import { cn } from "@workspace/ui/lib/utils"
@@ -59,6 +60,8 @@ const librarianStaffTabs = [
   { href: "/admin/rentals", label: "Возврат", icon: ClipboardList },
 ] as const
 
+type SidebarNavItem = { href: string; label: string; icon: LucideIcon }
+
 export function AppSidebar() {
   const pathname = usePathname()
   const { isAuthenticated, user, logout } = useAuth()
@@ -73,20 +76,11 @@ export function AppSidebar() {
     () => true,
     () => false,
   )
-  const visibleTabs =
-    mounted && isAuthenticated && isStaff
-      ? [...publicNavTabs, ...(isCatalogAdmin ? [...catalogAdminTabs] : []), ...librarianStaffTabs]
-      : publicNavTabs
 
-  return (
-    <aside className="flex min-h-0 w-72 shrink-0 flex-col border-r bg-muted/20 p-4">
-      <Link href="/" className="mb-6 shrink-0 flex cursor-pointer items-center gap-2 px-2">
-        <BookOpen className="size-5" />
-        <span className="text-lg font-semibold">Библиотека</span>
-      </Link>
-
-      <nav className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto pr-1">
-        {visibleTabs.map((tab) => (
+  function NavRows({ items }: { items: readonly SidebarNavItem[] }) {
+    return (
+      <div className="flex flex-col gap-1">
+        {items.map((tab) => (
           <Link
             key={tab.href}
             href={tab.href}
@@ -99,6 +93,42 @@ export function AppSidebar() {
             <span>{tab.label}</span>
           </Link>
         ))}
+      </div>
+    )
+  }
+
+  return (
+    <aside className="flex min-h-0 w-72 shrink-0 flex-col border-r bg-muted/20 p-4">
+      <Link href="/" className="mb-6 shrink-0 flex cursor-pointer items-center gap-2 px-2">
+        <BookOpen className="size-5" />
+        <span className="text-lg font-semibold">Библиотека</span>
+      </Link>
+
+      <nav className="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto pr-1">
+        <div>
+          <p className="mb-1.5 px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Каталог и сервисы
+          </p>
+          <NavRows items={publicNavTabs} />
+        </div>
+
+        {mounted && isAuthenticated && isStaff ? (
+          <div>
+            <p className="mb-1.5 px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Обслуживание
+            </p>
+            <NavRows items={librarianStaffTabs} />
+          </div>
+        ) : null}
+
+        {mounted && isAuthenticated && isCatalogAdmin ? (
+          <div>
+            <p className="mb-1.5 px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Администрирование
+            </p>
+            <NavRows items={catalogAdminTabs} />
+          </div>
+        ) : null}
       </nav>
 
       <div className="mt-auto shrink-0 border-t pt-4">

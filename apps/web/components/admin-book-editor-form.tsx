@@ -51,6 +51,26 @@ function firstNonEmptyId(...values: Array<string | undefined | null>): string {
   return ""
 }
 
+function buildFormStateFromBook(book: LibraryBook): BookFormState {
+  return {
+    categoryId: firstNonEmptyId(book.categoryId, book.category?.id),
+    publishingHouseId: firstNonEmptyId(book.publishingHouseId, book.publishingHouse?.id),
+    cityId: firstNonEmptyId(book.cityId, book.city?.id),
+    title: book.title,
+    publicationYear: String(book.publicationYear),
+    pages: String(book.pages),
+    isbn: book.isbn,
+    description: book.description ?? "",
+  }
+}
+
+function initialAuthorIdsFromBook(book: LibraryBook | null): string[] {
+  if (!book) return []
+  return (book.bookAuthors ?? [])
+    .map((row) => row.authorId ?? row.author?.id)
+    .filter((id): id is string => Boolean(id))
+}
+
 export function AdminBookEditorForm({
   token,
   book,
@@ -72,45 +92,56 @@ export function AdminBookEditorForm({
   onCancel?: () => void
   onSaved: () => void | Promise<void>
 }) {
-  const [form, setForm] = React.useState<BookFormState>(emptyForm)
-  const [selectedAuthorIds, setSelectedAuthorIds] = React.useState<string[]>([])
+  const [form, setForm] = React.useState<BookFormState>(() =>
+    book ? buildFormStateFromBook(book) : emptyForm,
+  )
+  const [selectedAuthorIds, setSelectedAuthorIds] = React.useState<string[]>(() =>
+    initialAuthorIdsFromBook(book),
+  )
   const [coverFile, setCoverFile] = React.useState<File | null>(null)
   const [submitting, setSubmitting] = React.useState(false)
 
   React.useEffect(() => {
     if (book) {
-      const categoryId = firstNonEmptyId(book.categoryId, book.category?.id)
-      const publishingHouseId = firstNonEmptyId(
-        book.publishingHouseId,
-        book.publishingHouse?.id,
-      )
-      const cityId = firstNonEmptyId(book.cityId, book.city?.id)
-      setForm({
-        categoryId,
-        publishingHouseId,
-        cityId,
-        title: book.title,
-        publicationYear: String(book.publicationYear),
-        pages: String(book.pages),
-        isbn: book.isbn,
-        description: book.description ?? "",
-      })
-      setSelectedAuthorIds(
-        (book.bookAuthors ?? [])
-          .map((row) => row.authorId ?? row.author?.id)
-          .filter((id): id is string => Boolean(id)),
-      )
+      setForm(buildFormStateFromBook(book))
+      setSelectedAuthorIds(initialAuthorIdsFromBook(book))
     } else {
       setForm(emptyForm)
       setSelectedAuthorIds([])
     }
     setCoverFile(null)
-  }, [
-    book,
-    categories.length,
-    publishingHouses.length,
-    cities.length,
-  ])
+  }, [book])
+
+  const categoryOptions = React.useMemo(() => {
+    const base = categories.map((c) => ({ value: c.id, label: c.name }))
+    const id = form.categoryId.trim()
+    if (id && !base.some((o) => o.value === id)) {
+      const label = book?.category?.id === id ? book.category.name : `Категория (${id.slice(0, 8)}…)`
+      return [{ value: id, label }, ...base]
+    }
+    return base
+  }, [categories, form.categoryId, book?.category])
+
+  const publishingHouseOptions = React.useMemo(() => {
+    const base = publishingHouses.map((p) => ({ value: p.id, label: p.name }))
+    const id = form.publishingHouseId.trim()
+    if (id && !base.some((o) => o.value === id)) {
+      const label =
+        book?.publishingHouse?.id === id ? book.publishingHouse.name : `Издательство (${id.slice(0, 8)}…)`
+      return [{ value: id, label }, ...base]
+    }
+    return base
+  }, [publishingHouses, form.publishingHouseId, book?.publishingHouse])
+
+  const cityOptions = React.useMemo(() => {
+    const base = cities.map((c) => ({ value: c.id, label: c.name }))
+    const id = form.cityId.trim()
+    if (id && !base.some((o) => o.value === id)) {
+      const label = book?.city?.id === id ? book.city.name : `Город (${id.slice(0, 8)}…)`
+      return [{ value: id, label }, ...base]
+    }
+    return base
+  }, [cities, form.cityId, book?.city])
 
   async function submit() {
     if (!form.title.trim() || !form.isbn.trim()) {
@@ -222,27 +253,30 @@ export function AdminBookEditorForm({
 
       <div className="grid gap-4 sm:grid-cols-2">
         <AdminFormSelect
+          key={book ? `book-cat-${book.id}-${form.categoryId}` : "book-cat-new"}
           label="Категория"
           value={form.categoryId}
           onValueChange={(v) => setForm((p) => ({ ...p, categoryId: v }))}
           placeholder="Выберите категорию"
-          options={categories.map((c) => ({ value: c.id, label: c.name }))}
+          options={categoryOptions}
         />
         <AdminFormSelect
+          key={book ? `book-ph-${book.id}-${form.publishingHouseId}` : "book-ph-new"}
           label="Издательство"
           value={form.publishingHouseId}
           onValueChange={(v) => setForm((p) => ({ ...p, publishingHouseId: v }))}
           placeholder="Выберите издательство"
-          options={publishingHouses.map((p) => ({ value: p.id, label: p.name }))}
+          options={publishingHouseOptions}
         />
       </div>
 
       <AdminFormSelect
+        key={book ? `book-city-${book.id}-${form.cityId}` : "book-city-new"}
         label="Город издания"
         value={form.cityId}
         onValueChange={(v) => setForm((p) => ({ ...p, cityId: v }))}
         placeholder="Выберите город"
-        options={cities.map((c) => ({ value: c.id, label: c.name }))}
+        options={cityOptions}
       />
 
       <div className="grid gap-4 sm:grid-cols-3">

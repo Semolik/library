@@ -268,7 +268,7 @@ export function AdminReturnRentPickerDialog(props: {
                 </div>
               ) : rentRows.length === 0 ? (
                 <p className="py-6 text-sm text-muted-foreground">
-                  У этого читателя нет книг на руках. Проверьте раздел «На руках» или введите UUID выдачи вручную.
+                  У этого читателя нет книг на руках. Проверьте раздел «На руках» или выберите другого читателя.
                 </p>
               ) : (
                 <ul className="max-h-[min(52vh,420px)] space-y-2 overflow-y-auto pr-1">

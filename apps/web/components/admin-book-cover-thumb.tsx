@@ -17,7 +17,7 @@ function PosterPlaceholder({ className }: { className?: string }) {
 }
 
 export function AdminBookCoverThumb(props: {
-  book: LibraryBook
+  book: Pick<LibraryBook, "hasCover" | "title">
   url?: string
   className?: string
   imgClassName?: string
