@@ -2,12 +2,20 @@
 
 import * as React from "react"
 import { usePathname } from "next/navigation"
-import { Search } from "lucide-react"
+import { Menu, Search } from "lucide-react"
 import { AppBreadcrumb } from "@/components/app-breadcrumb"
 import { AppSidebar } from "@/components/app-sidebar"
 import { CatalogSearchDialog } from "@/components/catalog-search-dialog"
 import { NotificationBell } from "@/components/notification-bell"
 import { usePageHeaderOptional } from "@/components/page-header-context"
+import { Button } from "@workspace/ui/components/button"
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@workspace/ui/components/sheet"
 
 const PAGE_TITLES: Record<string, string> = {
   "/": "Главная",
@@ -56,6 +64,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const breadcrumbs = pageHeader?.breadcrumbs ?? null
   const pageTitle = shellFallbackTitle(pathname)
   const [catalogSearchOpen, setCatalogSearchOpen] = React.useState(false)
+  const [mobileNavOpen, setMobileNavOpen] = React.useState(false)
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -70,16 +79,28 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex h-svh w-full overflow-hidden">
-      <AppSidebar />
+      <AppSidebar className="hidden md:flex" />
       <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
-        <header className="shrink-0 border-b bg-background px-6 py-4 md:px-8">
+        <header className="shrink-0 border-b bg-background px-3 py-3 sm:px-4 md:px-8 md:py-4">
           <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0 flex-1">
-              {breadcrumbs && breadcrumbs.length > 0 ? (
-                <AppBreadcrumb items={breadcrumbs} />
-              ) : (
-                <h1 className="text-sm font-medium">{pageTitle}</h1>
-              )}
+            <div className="flex min-w-0 flex-1 items-start gap-2">
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-sm"
+                className="-ml-1 shrink-0 md:hidden"
+                aria-label="Открыть меню"
+                onClick={() => setMobileNavOpen(true)}
+              >
+                <Menu className="size-4" aria-hidden />
+              </Button>
+              <div className="min-w-0 flex-1 pt-1 md:pt-0">
+                {breadcrumbs && breadcrumbs.length > 0 ? (
+                  <AppBreadcrumb items={breadcrumbs} />
+                ) : (
+                  <h1 className="truncate text-sm font-medium">{pageTitle}</h1>
+                )}
+              </div>
             </div>
             <div className="flex shrink-0 items-center gap-2">
               <button
@@ -97,7 +118,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </header>
-        <main className="flex min-h-0 flex-1 flex-col overflow-hidden p-6 md:p-8">
+        <main className="flex min-h-0 flex-1 flex-col overflow-hidden p-3 sm:p-4 md:p-8">
           <div
             data-app-scroll-region
             className="flex min-h-0 flex-1 flex-col overflow-y-auto"
@@ -106,6 +127,18 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </main>
       </div>
+      <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
+        <SheetContent side="left" className="w-[min(20rem,calc(100vw-2rem))] gap-0 p-0" showCloseButton>
+          <SheetHeader className="sr-only">
+            <SheetTitle>Меню</SheetTitle>
+            <SheetDescription>Навигация по разделам библиотеки</SheetDescription>
+          </SheetHeader>
+          <AppSidebar
+            className="h-full w-full border-r-0"
+            onNavigate={() => setMobileNavOpen(false)}
+          />
+        </SheetContent>
+      </Sheet>
       <CatalogSearchDialog open={catalogSearchOpen} onOpenChange={setCatalogSearchOpen} />
     </div>
   )

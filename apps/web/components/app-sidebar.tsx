@@ -3,6 +3,7 @@
 import { useSyncExternalStore } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import type { ComponentProps } from "react"
 import {
   BadgeCheck,
   Banknote,
@@ -62,7 +63,11 @@ const librarianStaffTabs = [
 
 type SidebarNavItem = { href: string; label: string; icon: LucideIcon }
 
-export function AppSidebar() {
+type AppSidebarProps = ComponentProps<"aside"> & {
+  onNavigate?: () => void
+}
+
+export function AppSidebar({ className, onNavigate, ...props }: AppSidebarProps) {
   const pathname = usePathname()
   const { isAuthenticated, user, logout } = useAuth()
   const displayName = [user?.firstName, user?.lastName].filter(Boolean).join(" ").trim()
@@ -84,6 +89,7 @@ export function AppSidebar() {
           <Link
             key={tab.href}
             href={tab.href}
+            onClick={onNavigate}
             className={cn(
               "flex cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition-colors hover:bg-muted",
               pathname === tab.href && "bg-primary text-primary-foreground hover:bg-primary/90",
@@ -98,8 +104,11 @@ export function AppSidebar() {
   }
 
   return (
-    <aside className="flex min-h-0 w-72 shrink-0 flex-col border-r bg-muted/20 p-4">
-      <Link href="/" className="mb-6 shrink-0 flex cursor-pointer items-center gap-2 px-2">
+    <aside
+      className={cn("flex min-h-0 w-72 shrink-0 flex-col border-r bg-muted/20 p-4", className)}
+      {...props}
+    >
+      <Link href="/" onClick={onNavigate} className="mb-6 shrink-0 flex cursor-pointer items-center gap-2 px-2">
         <BookOpen className="size-5" />
         <span className="text-lg font-semibold">Библиотека</span>
       </Link>

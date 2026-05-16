@@ -232,61 +232,63 @@ export function AdminLibraryNameCrud(props: AdminLibraryNameCrudProps) {
           </Button>
         </div>
 
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Название</TableHead>
-              <TableHead className="w-[88px] text-right tabular-nums">{countColumnHeader}</TableHead>
-              <TableHead className="w-[100px] text-right">Действия</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {loading ? (
+        <div className="overflow-x-auto rounded-lg border bg-card">
+          <Table>
+            <TableHeader>
               <TableRow>
-                <TableCell colSpan={3} className="text-muted-foreground">
-                  Загрузка…
-                </TableCell>
+                <TableHead>Название</TableHead>
+                <TableHead className="w-[88px] text-right tabular-nums">{countColumnHeader}</TableHead>
+                <TableHead className="w-[100px] text-right">Действия</TableHead>
               </TableRow>
-            ) : items.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={3} className="text-muted-foreground">
-                  Нет записей.
-                </TableCell>
-              </TableRow>
-            ) : filteredItems.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={3} className="text-muted-foreground">
-                  Ничего не найдено.
-                </TableCell>
-              </TableRow>
-            ) : (
-              filteredItems.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell className="font-medium">{row.name}</TableCell>
-                  <TableCell className="text-right tabular-nums text-muted-foreground">
-                    {row.bookCount ?? 0}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-1">
-                      <Button type="button" variant="ghost" size="icon-sm" onClick={() => openEdit(row)}>
-                        <Pencil className="size-4" />
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon-sm"
-                        className="text-destructive hover:text-destructive"
-                        onClick={() => setDeleteTarget(row)}
-                      >
-                        <Trash2 className="size-4" />
-                      </Button>
-                    </div>
+            </TableHeader>
+            <TableBody>
+              {loading ? (
+                <TableRow>
+                  <TableCell colSpan={3} className="text-muted-foreground">
+                    Загрузка…
                   </TableCell>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
+              ) : items.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={3} className="text-muted-foreground">
+                    Нет записей.
+                  </TableCell>
+                </TableRow>
+              ) : filteredItems.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={3} className="text-muted-foreground">
+                    Ничего не найдено.
+                  </TableCell>
+                </TableRow>
+              ) : (
+                filteredItems.map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell className="font-medium">{row.name}</TableCell>
+                    <TableCell className="text-right tabular-nums text-muted-foreground">
+                      {row.bookCount ?? 0}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-1">
+                        <Button type="button" variant="ghost" size="icon-sm" onClick={() => openEdit(row)}>
+                          <Pencil className="size-4" />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon-sm"
+                          className="text-destructive hover:text-destructive"
+                          onClick={() => setDeleteTarget(row)}
+                        >
+                          <Trash2 className="size-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
 
       <Dialog

@@ -303,71 +303,73 @@ export default function AdminAuthorsPage() {
           </Button>
         </div>
 
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-12"> </TableHead>
-              <TableHead>Фамилия</TableHead>
-              <TableHead>Имя</TableHead>
-              <TableHead className="hidden md:table-cell">Отчество</TableHead>
-              <TableHead className="hidden lg:table-cell">Строка в каталоге</TableHead>
-              <TableHead className="w-[88px] text-right tabular-nums">Книги</TableHead>
-              <TableHead className="w-[100px] text-right">Действия</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {loading ? (
+        <div className="overflow-x-auto rounded-lg border bg-card">
+          <Table>
+            <TableHeader>
               <TableRow>
-                <TableCell colSpan={7} className="text-muted-foreground">
-                  Загрузка…
-                </TableCell>
+                <TableHead className="w-12"> </TableHead>
+                <TableHead>Фамилия</TableHead>
+                <TableHead>Имя</TableHead>
+                <TableHead className="hidden md:table-cell">Отчество</TableHead>
+                <TableHead className="hidden lg:table-cell">Строка в каталоге</TableHead>
+                <TableHead className="w-[88px] text-right tabular-nums">Книги</TableHead>
+                <TableHead className="w-[100px] text-right">Действия</TableHead>
               </TableRow>
-            ) : items.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={7} className="text-muted-foreground">
-                  Авторов пока нет. Нажмите «Добавить», чтобы создать первого.
-                </TableCell>
-              </TableRow>
-            ) : filteredItems.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={7} className="text-muted-foreground">
-                  Ничего не найдено.
-                </TableCell>
-              </TableRow>
-            ) : (
-              filteredItems.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell className="w-12 align-middle">
-                    <AdminAuthorThumb authorId={row.id} hasPhoto={row.hasPhoto} token={token} />
-                  </TableCell>
-                  <TableCell className="font-medium">{row.lastName}</TableCell>
-                  <TableCell>{row.firstName}</TableCell>
-                  <TableCell className="hidden md:table-cell">{row.middleName ?? "—"}</TableCell>
-                  <TableCell className="hidden lg:table-cell text-muted-foreground">{authorFullName(row)}</TableCell>
-                  <TableCell className="text-right tabular-nums text-muted-foreground">
-                    {row.bookCount ?? 0}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-1">
-                      <Button type="button" variant="ghost" size="icon-sm" onClick={() => openEdit(row)}>
-                        <Pencil className="size-4" />
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon-sm"
-                        className="text-destructive hover:text-destructive"
-                        onClick={() => setDeleteTarget(row)}
-                      >
-                        <Trash2 className="size-4" />
-                      </Button>
-                    </div>
+            </TableHeader>
+            <TableBody>
+              {loading ? (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-muted-foreground">
+                    Загрузка…
                   </TableCell>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
+              ) : items.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-muted-foreground">
+                    Авторов пока нет. Нажмите «Добавить», чтобы создать первого.
+                  </TableCell>
+                </TableRow>
+              ) : filteredItems.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-muted-foreground">
+                    Ничего не найдено.
+                  </TableCell>
+                </TableRow>
+              ) : (
+                filteredItems.map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell className="w-12 align-middle">
+                      <AdminAuthorThumb authorId={row.id} hasPhoto={row.hasPhoto} token={token} />
+                    </TableCell>
+                    <TableCell className="font-medium">{row.lastName}</TableCell>
+                    <TableCell>{row.firstName}</TableCell>
+                    <TableCell className="hidden md:table-cell">{row.middleName ?? "—"}</TableCell>
+                    <TableCell className="hidden lg:table-cell text-muted-foreground">{authorFullName(row)}</TableCell>
+                    <TableCell className="text-right tabular-nums text-muted-foreground">
+                      {row.bookCount ?? 0}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-1">
+                        <Button type="button" variant="ghost" size="icon-sm" onClick={() => openEdit(row)}>
+                          <Pencil className="size-4" />
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon-sm"
+                          className="text-destructive hover:text-destructive"
+                          onClick={() => setDeleteTarget(row)}
+                        >
+                          <Trash2 className="size-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
 
       <Dialog
