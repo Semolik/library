@@ -80,10 +80,10 @@ export default function AuthorDetailPage() {
         ) : (
           <>
             <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
-              <div className="flex size-28 shrink-0 items-center justify-center overflow-hidden rounded-2xl border bg-muted shadow-inner sm:size-36">
+              <div className="relative flex size-28 shrink-0 items-center justify-center overflow-hidden rounded-2xl border bg-muted shadow-inner sm:size-36">
                 {photoUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={photoUrl} alt="" className="size-full object-cover" />
+                  <img src={photoUrl} alt="" className="absolute inset-0 h-full w-full min-h-0 object-cover" />
                 ) : (
                   <User className="size-14 text-muted-foreground/45 sm:size-16" aria-hidden />
                 )}

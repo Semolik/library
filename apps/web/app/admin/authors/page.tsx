@@ -73,10 +73,10 @@ function AdminAuthorThumb({
   }, [authorId, hasPhoto, token])
 
   return (
-    <div className="flex size-9 shrink-0 overflow-hidden rounded-full border bg-muted">
+    <div className="relative flex size-9 shrink-0 overflow-hidden rounded-full border bg-muted">
       {url ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={url} alt="" className="size-full object-cover" />
+        <img src={url} alt="" className="absolute inset-0 h-full w-full min-h-0 object-cover" />
       ) : (
         <User className="m-auto size-4 text-muted-foreground/45" aria-hidden />
       )}
@@ -93,6 +93,7 @@ export default function AdminAuthorsPage() {
   const [lastName, setLastName] = React.useState("")
   const [firstName, setFirstName] = React.useState("")
   const [middleName, setMiddleName] = React.useState("")
+  const [createPhotoFile, setCreatePhotoFile] = React.useState<File | null>(null)
   const [editOpen, setEditOpen] = React.useState(false)
   const [editRow, setEditRow] = React.useState<LibraryAuthor | null>(null)
   const [editLastName, setEditLastName] = React.useState("")
@@ -177,6 +178,7 @@ export default function AdminAuthorsPage() {
     setLastName("")
     setFirstName("")
     setMiddleName("")
+    setCreatePhotoFile(null)
     setCreateOpen(true)
   }
 
@@ -189,7 +191,7 @@ export default function AdminAuthorsPage() {
     }
     setSubmitting(true)
     try {
-      await libraryClient.createAuthor(
+      const created = await libraryClient.createAuthor(
         {
           lastName: ln,
           firstName: fn,
@@ -197,11 +199,15 @@ export default function AdminAuthorsPage() {
         },
         token,
       )
+      if (createPhotoFile) {
+        await libraryClient.uploadAuthorPhoto(created.id, createPhotoFile, token)
+      }
       setCreateOpen(false)
       setLastName("")
       setFirstName("")
       setMiddleName("")
-      toast.success("Автор добавлен")
+      setCreatePhotoFile(null)
+      toast.success(createPhotoFile ? "Автор добавлен. Портрет загружен." : "Автор добавлен")
       await refresh()
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Не удалось создать автора.")
@@ -372,6 +378,7 @@ export default function AdminAuthorsPage() {
             setLastName("")
             setFirstName("")
             setMiddleName("")
+            setCreatePhotoFile(null)
           }
         }}
       >
@@ -410,6 +417,16 @@ export default function AdminAuthorsPage() {
                   onChange={(e) => setMiddleName(e.target.value)}
                   placeholder="Необязательно"
                 />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="cphoto">Портрет</Label>
+                <Input
+                  id="cphoto"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/gif"
+                  onChange={(e) => setCreatePhotoFile(e.target.files?.[0] ?? null)}
+                />
+                <p className="text-muted-foreground text-xs">Необязательно. До 5 МБ.</p>
               </div>
             </div>
             <DialogFooter>

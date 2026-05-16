@@ -36,10 +36,10 @@ function AuthorGridCard({ author }: { author: LibraryAuthor }) {
       href={`/authors/${author.id}`}
       className="flex flex-col items-center gap-2 rounded-xl border bg-card p-3 text-center shadow-sm transition-colors hover:border-primary/40 hover:shadow"
     >
-      <div className="flex size-[4.5rem] shrink-0 items-center justify-center overflow-hidden rounded-full border bg-muted">
+      <div className="relative flex size-[4.5rem] shrink-0 items-center justify-center overflow-hidden rounded-full border bg-muted">
         {photoUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={photoUrl} alt="" className="size-full object-cover" />
+          <img src={photoUrl} alt="" className="absolute inset-0 h-full w-full min-h-0 object-cover" />
         ) : (
           <User className="size-8 text-muted-foreground/45" aria-hidden />
         )}
